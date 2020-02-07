@@ -1,18 +1,16 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <navigation :point="[9,5,5,5]"></navigation>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import navigation from "../components/Navigavition";
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld
+    navigation: navigation
   }
-}
+};
 </script>

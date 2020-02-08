@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import bilibili from '../views/bilibili'
+import novel from '../views/novel'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/bilibili',
     name: 'bilibili',
     component: bilibili
+  },
+  {
+    path:'/novel',
+    name:'novel',
+    component:novel
   }
 ]
 

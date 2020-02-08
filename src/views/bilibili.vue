@@ -1,14 +1,68 @@
 <template>
   <div id="bilibili">
     <navigation :point="[5,9,5,5]"></navigation>
-    <el-row>
-      <el-col :xs="{span:24,offset:0}" :sm="{span:16,offset:4}" :md="{span:12,offset:6}">
-        <a :href="'https://www.bilibili.com/video/av'" target="_blank">
-          <el-button>原视频 :</el-button>
+    <br />
+    <el-col :xs="{span:24,offset:0}" :sm="{span:18,offset:3}" :md="{span:16,offset:4}">
+      <el-tooltip :content="main_av.desc" placement="top" effect="light">
+        <a :href="'https://www.bilibili.com/video/av'+main_av.aid" target="_blank">
+          <el-button>原视频 :{{main_av.title}}</el-button>
         </a>
-        <el-button type="success" icon="el-icon-check" circle></el-button>
-      </el-col>
-    </el-row>
+      </el-tooltip>
+
+      <el-button type="success" icon="el-icon-check" circle></el-button>
+      <br />
+      <br />
+      <el-row :gutter="10">
+        <el-col
+          :xs="{span:24}"
+          :sm="{span:12}"
+          :md="{span:12}"
+          :lg="{span:8}"
+          v-for="(item,index) in recommended"
+          :key="index"
+        >
+          <el-card :body-style="{ padding: '0px' }">
+            <div style="padding: 14px;">
+              标题:
+              <el-link
+                :href="'https://www.bilibili.com/video/av'+item.video.aid"
+                target="_blank"
+                class="button"
+                type="primary"
+              >{{item.video.title}}</el-link>作者:
+              <el-link
+                :href="'https://space.bilibili.com/'+item.owner.mid"
+                target="_blank"
+                class="button"
+                type="primary"
+              >{{item.owner.name}}</el-link>
+            </div>
+            <el-tooltip effect="light" placement="bottom-start">
+              <div slot="content">
+                <div
+                  v-for="p in Math.ceil(item.video.desc.length/20)"
+                  :key="p"
+                >{{item.video.desc.slice((p-1)*20,p*20)}}</div>
+              </div>
+              <img :src="item.video.pic" class="image" />
+            </el-tooltip>
+            <div style="padding: 14px;">
+              <span style="float:left;" v-show="!item.save">未收藏</span>
+              <span style="float:left;" v-show="item.save">已收藏</span>
+              <span>{{index+1}}/{{recommended.length}}</span>
+              <el-button
+                type="danger"
+                icon="el-icon-star-off"
+                circle
+                style="float:right;"
+                :disabled="item.save"
+                @click="post_av_save(index)"
+              ></el-button>
+            </div>
+          </el-card>
+        </el-col>
+      </el-row>
+    </el-col>
   </div>
 </template>
 <script>
@@ -17,8 +71,68 @@ export default {
   name: "bilibili",
   components: {
     navigation: navigation
+  },
+  data() {
+    return {
+      main_av: {
+        aid: "",
+        title: "空"
+      },
+      recommended: []
+    };
+  },
+  created() {
+    this.get_base();
+  },
+  methods: {
+    get_base() {
+      this.axios
+        .get("http://192.168.0.103:5000/api/bilibili/base")
+        .then(response => {
+          if (response.data.ok) {
+            this.main_av = response.data.data;
+            this.get_recommended(response.data.data.aid);
+          } else {
+            this.$message({
+              showClose: true,
+              message: "发生错诶,请刷新试试",
+              type: "error"
+            });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    get_recommended(aid) {
+      this.axios
+        .get(
+          "http://192.168.0.103:5000/api/bilibili/recommended/" + String(aid)
+        )
+        .then(response => {
+          if (response.data.ok) {
+            this.recommended = response.data.data;
+          } else {
+            this.$message({
+              showClose: true,
+              message: "发生错诶,请刷新试试",
+              type: "error"
+            });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    post_av_save(index) {
+      console.log(index);
+    }
   }
 };
 </script>
 <style scoped>
+.image {
+  width: 100%;
+  display: block;
+}
 </style>

@@ -7,6 +7,7 @@ import axios from 'axios'
 
 Vue.config.productionTip = false
 axios.defaults.withCredentials = true;
+
 Vue.prototype.axios = axios;
 new Vue({
   router,

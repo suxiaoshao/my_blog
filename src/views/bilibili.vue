@@ -9,7 +9,7 @@
         </a>
       </el-tooltip>
 
-      <el-button type="success" icon="el-icon-check" circle></el-button>
+      <el-button type="success" icon="el-icon-check" circle @click="post_update"></el-button>
       <br />
       <br />
       <el-row :gutter="10">
@@ -29,12 +29,14 @@
                 target="_blank"
                 class="button"
                 type="primary"
+                :underline="false"
               >{{item.video.title}}</el-link>作者:
               <el-link
                 :href="'https://space.bilibili.com/'+item.owner.mid"
                 target="_blank"
                 class="button"
                 type="primary"
+                :underline="false"
               >{{item.owner.name}}</el-link>
             </div>
             <el-tooltip effect="light" placement="bottom-start">
@@ -62,6 +64,10 @@
           </el-card>
         </el-col>
       </el-row>
+      <br />
+      <el-button type="success" icon="el-icon-check" circle @click="post_update"></el-button>
+      <br />
+      <br />
     </el-col>
   </div>
 </template>
@@ -112,10 +118,12 @@ export default {
         .then(response => {
           if (response.data.ok) {
             this.recommended = response.data.data;
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
           } else {
             this.$message({
               showClose: true,
-              message: "发生错诶,请刷新试试",
+              message: "发生错误,请刷新试试",
               type: "error"
             });
           }
@@ -125,7 +133,53 @@ export default {
         });
     },
     post_av_save(index) {
-      console.log(index);
+      this.axios
+        .post(
+          "http://192.168.0.103:5000/api/bilibili/av_save",
+          this.recommended[index]
+        )
+        .then(response => {
+          if (response.data.ok) {
+            this.recommended[index].save = true;
+            this.$message({
+              showClose: true,
+              message: "收藏成功",
+              type: "success"
+            });
+          } else {
+            this.$message({
+              showClose: true,
+              message: "发生错误,请刷新试试",
+              type: "error"
+            });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    post_update() {
+      this.axios
+        .post("http://192.168.0.103:5000/api/bilibili/base", this.main_av)
+        .then(response => {
+          if (response.data.ok) {
+            this.get_base();
+            this.$message({
+              showClose: true,
+              message: "更新成功",
+              type: "success"
+            });
+          } else {
+            this.$message({
+              showClose: true,
+              message: "发生错误,请刷新试试",
+              type: "error"
+            });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 };

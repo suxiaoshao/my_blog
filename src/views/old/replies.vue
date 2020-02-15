@@ -47,7 +47,7 @@ export default {
   methods: {
     get_main_json() {
       this.axios
-        .get("http://192.168.0.103:5000/api/replies/base")
+        .get("http://192.168.0.103:5000/api/old/replies/base")
         .then(response => {
           if (response.data.success === true) {
             this.content = response.data.data.content;
@@ -62,7 +62,7 @@ export default {
     },
     delete_reply() {
       this.axios
-        .post("http://192.168.0.103:5000/api/replies/base", {
+        .post("http://192.168.0.103:5000/api/old/replies/base", {
           ok: false,
           data: { content: this.content, url: this.url }
         })
@@ -83,7 +83,7 @@ export default {
     },
     retain_reply() {
       this.axios
-        .post("http://192.168.0.103:5000/api/replies/base", {
+        .post("http://192.168.0.103:5000/api/old/replies/base", {
           ok: true,
           data: { content: this.content, url: this.url }
         })

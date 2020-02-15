@@ -1,7 +1,4 @@
 import bilibili from '../views/old/bilibili'
-import novel from '../views/old/novel'
-import read from '../views/old/novel/read'
-import novel_research from '../views/old/novel/novel_research'
 import jpg from '../views/old/jpg'
 import replies from '../views/old/replies'
 import old_main from '../views/old/main'
@@ -21,32 +18,6 @@ const old_router = {
             meta: {
                 title: 'B站信息'
             }
-        },
-        {
-            path: '/old/novel',
-            name: 'novel',
-            component: novel,
-            meta: {
-                title: '小说'
-            },
-            children: [
-                {
-                    path: '/old/novel/read',
-                    name: 'read',
-                    component: read,
-                    meta: {
-                        title: '阅读'
-                    }
-                },
-                {
-                    path: '/old/novel/research',
-                    name: 'novel_research',
-                    component: novel_research,
-                    meta: {
-                        title: '小说搜索'
-                    }
-                }
-            ]
         },
         {
             path: '/old/jpg',

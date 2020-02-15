@@ -94,7 +94,7 @@ export default {
   methods: {
     get_base() {
       this.axios
-        .get("http://192.168.0.103:5000/api/bilibili/base")
+        .get("http://192.168.0.103:5000/api/old/bilibili/base")
         .then(response => {
           if (response.data.ok) {
             this.main_av = response.data.data;
@@ -114,7 +114,7 @@ export default {
     get_recommended(aid) {
       this.axios
         .get(
-          "http://192.168.0.103:5000/api/bilibili/recommended/" + String(aid)
+          "http://192.168.0.103:5000/api/old/bilibili/recommended/" + String(aid)
         )
         .then(response => {
           if (response.data.ok) {
@@ -136,7 +136,7 @@ export default {
     post_av_save(index) {
       this.axios
         .post(
-          "http://192.168.0.103:5000/api/bilibili/av_save",
+          "http://192.168.0.103:5000/api/old/bilibili/av_save",
           this.recommended[index]
         )
         .then(response => {
@@ -161,7 +161,7 @@ export default {
     },
     post_update() {
       this.axios
-        .post("http://192.168.0.103:5000/api/bilibili/base", this.main_av)
+        .post("http://192.168.0.103:5000/api/old/bilibili/base", this.main_av)
         .then(response => {
           if (response.data.ok) {
             this.get_base();

@@ -6,6 +6,7 @@ import novel from '../views/novel'
 import read from '../views/novel/read'
 import novel_research from '../views/novel/novel_research'
 import jpg from '../views/jpg'
+import replies from '../views/replies'
 
 Vue.use(VueRouter)
 
@@ -58,6 +59,14 @@ const routes = [
     component: jpg,
     meta: {
       title:'图片'
+    }
+  },
+  {
+    path:'/replies',
+    name:'replies',
+    component:replies,
+    meta:{
+      title:'评论'
     }
   }
 ]

@@ -63,17 +63,16 @@ export default {
   },
   methods: {
     get_main() {
-      let that = this;
       this.axios
         .get("http://192.168.0.103:5000/api/jpg/base")
-        .then(function(response) {
+        .then(response => {
           if (response.data.success === false) {
-            alert("没有图片");
+            this.$alert("没图片了", "警告");
           } else {
-            that.$data.jpg_list = response.data.data;
+            this.jpg_list = response.data.data;
           }
         })
-        .catch(function(error) {
+        .catch(error => {
           console.log(error);
         });
     },

@@ -1,6 +1,6 @@
 <template>
   <div id="novel">
-    <navigation :point="[5,5,9,5]"></navigation>
+    <navigation :point="[6,6,6,6]"></navigation>
     <br />
     <reserch-bar @get_research_result="get_research" v-if="is_main"></reserch-bar>
     <router-view></router-view>

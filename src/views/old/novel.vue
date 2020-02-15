@@ -7,8 +7,8 @@
   </div>
 </template>
 <script>
-import navigation from "../components/Navigavition";
-import reserch from "../components/Research_bar";
+import navigation from "../../components/Navigavition";
+import reserch from "../../components/Research_bar";
 export default {
   name: "novel",
   components: {

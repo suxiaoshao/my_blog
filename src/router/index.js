@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import bilibili from '../views/bilibili'
-import novel from '../views/novel'
-import read from '../views/novel/read'
-import novel_research from '../views/novel/novel_research'
-import jpg from '../views/jpg'
-import replies from '../views/replies'
+import bilibili from '../views/old/bilibili'
+import novel from '../views/old/novel'
+import read from '../views/old/novel/read'
+import novel_research from '../views/old/novel/novel_research'
+import jpg from '../views/old/jpg'
+import replies from '../views/old/replies'
 
 Vue.use(VueRouter)
 
@@ -58,15 +58,15 @@ const routes = [
     name: 'jpg',
     component: jpg,
     meta: {
-      title:'图片'
+      title: '图片'
     }
   },
   {
-    path:'/replies',
-    name:'replies',
-    component:replies,
-    meta:{
-      title:'评论'
+    path: '/replies',
+    name: 'replies',
+    component: replies,
+    meta: {
+      title: '评论'
     }
   }
 ]

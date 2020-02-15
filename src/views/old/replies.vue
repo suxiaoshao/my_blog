@@ -29,7 +29,7 @@
   </div>
 </template>
 <script>
-import navigation from "../components/Navigavition";
+import navigation from "../../components/Navigavition";
 export default {
   name: "replies",
   components: {

@@ -113,9 +113,9 @@ export default {
     },
     get_recommended(aid) {
       this.axios
-        .get(
-          "http://192.168.0.103:5000/api/old/bilibili/recommended/" + String(aid)
-        )
+        .post("http://192.168.0.103:5000/api/old/bilibili/recommended", {
+          aid: aid
+        })
         .then(response => {
           if (response.data.ok) {
             this.recommended = response.data.data;

@@ -2,35 +2,31 @@
   <div id="blog_article">
     <br />
     <br />
+    <el-backtop :visibility-height="0"></el-backtop>
     <el-col :xs="{span:24,offset:0}" :sm="{span:16,offset:4}" :md="{span:14,offset:5}">
-      <el-card shadow="hover" v-loading="article_loading">
+      <el-card shadow="hover">
         <div slot="header">
-          <h1 class="article-title" style="text-align: center">{{article_data.title}}</h1>
+          <div
+            style="text-align: center;font-size: 1.5rem;margin: 20px auto;"
+          >{{article_data.title}}</div>
         </div>
-        <div id="content" v-html="real_content"></div>
+        <MarkdownPreview :initialValue="article_data.content"></MarkdownPreview>
       </el-card>
     </el-col>
   </div>
 </template>
 <script>
-let marked = require("marked");
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  gfm: true,
-  tables: true,
-  breaks: false,
-  pedantic: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false
-});
+import { MarkdownPreview } from "vue-meditor";
 export default {
   name: "blog_article",
+  components: {
+    MarkdownPreview: MarkdownPreview
+  },
   data() {
     return {
       article_data: {
         title: "",
-        time: "",
+        // time: "",
         content: ""
       },
       article_loading: true
@@ -60,30 +56,8 @@ export default {
         });
     }
   },
-  computed: {
-    real_content() {
-      return marked(this.article_data.content);
-    }
-  }
+  computed: {}
 };
 </script>
-<style>
-#content img {
-  width: 100%;
-  display: block;
-}
-#content a {
-  background: 0 0;
-  color: #4183c4;
-  text-decoration: none;
-}
-#content a:hover {
-  color: grey;
-  outline: 0;
-  text-decoration: underline;
-}
-#content p {
-  margin-top: 0;
-  margin-bottom: 16px;
-}
+<style scoped>
 </style>

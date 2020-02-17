@@ -17,7 +17,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :xs="{span:24,offset:0}" :sm="{span:16,offset:4}" :md="{span:14,offset:5}">
+      <el-col :xs="{span:24,offset:0}" :sm="{span:18,offset:3}" :md="{span:16,offset:4}">
         <Markdown
           :toolbars="{uploadImage:true,image:false}"
           @on-upload-image="post_jpg"

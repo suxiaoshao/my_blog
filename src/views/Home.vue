@@ -11,8 +11,6 @@ export default {
   name: "Home",
   components: {
     navigation: navigation
-  },
-  methods: {
   }
 };
 </script>

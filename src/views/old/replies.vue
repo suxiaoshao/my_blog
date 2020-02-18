@@ -24,6 +24,8 @@
           icon="el-icon-folder-delete"
           @click="delete_reply"
         >删除</el-button>
+        <br />
+        <br />
       </el-card>
     </el-col>
   </div>

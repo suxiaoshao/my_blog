@@ -2,19 +2,8 @@
   <div id="blog_article">
     <br />
     <br />
-    <div style="position:fixed;
-    right:10%;
-    bottom:10%;">
-      <el-dropdown trigger="click" @command="handleCommand">
-        <el-button type="primary" icon="el-icon-more-outline" circle></el-button>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="a">回到顶部</el-dropdown-item>
-          <el-dropdown-item command="b">目录</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
 
-    <el-dialog title="目录" :visible.sync="dialogVisible" :fullscreen='is_phone'>
+    <el-dialog title="目录" :visible.sync="dialogVisible" :fullscreen="is_phone">
       <el-menu default-active="2" class="el-menu-vertical-demo">
         <el-menu-item
           :disabled="judge(directory_flag,item)"
@@ -38,12 +27,28 @@
             style="text-align: center;font-size: 1.5rem;margin: 20px auto;"
           >{{article_data.title}}</div>
           <div style="text-align: center;">
-            <span style="margin-right: 10px;">{{"#"+article_data.time_str}}</span>
+            <span style="margin-right: 10px;color: #606266;">{{"#"+article_data.read_num+'次阅读'}}</span>
+            <el-link :underline="false" style="margin-right: 10px;font-size: 16px;">
+              <span>{{'#'+article_type[article_data.type]}}</span>
+              <i class="el-icon-view el-icon--right"></i>
+            </el-link>
+            <span style="margin-right: 10px;color: #606266;">{{"#"+article_data.time_str}}</span>
           </div>
         </div>
         <MarkdownPreview :initialValue="article_data.content"></MarkdownPreview>
       </el-card>
     </el-col>
+    <div style="position:fixed;
+    right:10%;
+    bottom:10%;">
+      <el-dropdown trigger="click" @command="handleCommand">
+        <el-button type="primary" icon="el-icon-more-outline" circle></el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="a">回到顶部</el-dropdown-item>
+          <el-dropdown-item command="b">目录</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
   </div>
 </template>
 <script>
@@ -112,6 +117,9 @@ export default {
     },
     is_phone() {
       return document.documentElement.clientWidth <= 750;
+    },
+    article_type() {
+      return this.$store.state.article_type;
     }
   }
 };

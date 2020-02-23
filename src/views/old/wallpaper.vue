@@ -1,29 +1,27 @@
 <template>
-  <div id="replies">
+  <div id="wallpeper">
     <navigation :point="[5,5,9,5]"></navigation>
     <br />
     <br />
     <el-row>
       <el-col :xs="{span:22,offset:1}" :sm="{span:14,offset:5}" :md="{span:10,offset:7}">
         <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>
-              <el-link :href="url.split('$$')[0]" target="_blank" :underline="false">评论链接</el-link>
-            </span>
+          <div slot="header">
+            <el-link :href="url" :underline="false" target="_blank">图片链接</el-link>
           </div>
-          <div :key="content" class="text item">{{content}}</div>
+          <img class="image" :src="real_url" alt="  " />
           <br />
           <el-button
             style="float: left"
             type="success"
             icon="el-icon-folder-checked"
-            @click="retain_reply"
+            @click="retain_wallpaper"
           >保留</el-button>
           <el-button
             style="float: right"
             type="danger"
             icon="el-icon-folder-delete"
-            @click="delete_reply"
+            @click="delete_wallpaper"
           >删除</el-button>
           <br />
           <br />
@@ -35,26 +33,35 @@
 <script>
 import navigation from "../../components/Navigavition";
 export default {
-  name: "replies",
+  name: "wallpaper",
   components: {
     navigation: navigation
   },
   data() {
     return {
-      content: "还没评论呢",
-      url: "dfhbkdvbfh$$"
+      url: ""
     };
   },
   mounted() {
     this.get_main_json();
   },
+  computed: {
+    real_url() {
+      let url_list = this.url.split("/");
+      return (
+        "http://122.51.194.238:5000/api/old/wallpaper/img/" +
+        url_list[url_list.length - 2] +
+        "===" +
+        url_list[url_list.length - 1]
+      );
+    }
+  },
   methods: {
     get_main_json() {
       this.axios
-        .get("http://122.51.194.238:5000/api/old/replies/base")
+        .get("http://122.51.194.238:5000/api/old/wallpaper/base")
         .then(response => {
           if (response.data.success === true) {
-            this.content = response.data.data.content;
             this.url = response.data.data.url;
           } else {
             this.$alert("请刷新试试", "没有了");
@@ -64,16 +71,16 @@ export default {
           console.log(error);
         });
     },
-    delete_reply() {
+    delete_wallpaper() {
       this.axios
-        .post("http://122.51.194.238:5000/api/old/replies/base", {
+        .post("http://122.51.194.238:5000/api/old/wallpaper/base", {
           ok: false,
-          data: { content: this.content, url: this.url }
+          url: this.url
         })
         .then(response => {
           if (response.data.success === true) {
             this.$message({
-              message: "成功删除评论",
+              message: "成功删除壁纸",
               type: "success"
             });
             this.get_main_json();
@@ -85,16 +92,16 @@ export default {
           console.log(error);
         });
     },
-    retain_reply() {
+    retain_wallpaper() {
       this.axios
-        .post("http://122.51.194.238:5000/api/old/replies/base", {
+        .post("http://122.51.194.238:5000/api/old/wallpaper/base", {
           ok: true,
-          data: { content: this.content, url: this.url }
+          url: this.url
         })
         .then(response => {
           if (response.data.success === true) {
             this.$message({
-              message: "成功保留评论",
+              message: "成功保留壁纸",
               type: "success"
             });
             this.get_main_json();
@@ -110,4 +117,8 @@ export default {
 };
 </script>
 <style scoped>
+.image {
+  width: 100%;
+  display: block;
+}
 </style>

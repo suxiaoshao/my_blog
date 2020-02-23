@@ -2,7 +2,6 @@
   <div id="blog_article">
     <br />
     <br />
-
     <el-dialog title="目录" :visible.sync="dialogVisible" :fullscreen="is_phone">
       <el-menu default-active="2" class="el-menu-vertical-demo">
         <el-menu-item
@@ -19,25 +18,34 @@
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
-
-    <el-col :xs="{span:24,offset:0}" :sm="{span:16,offset:4}" :md="{span:14,offset:5}">
-      <el-card shadow="hover">
-        <div slot="header">
-          <div
-            style="text-align: center;font-size: 1.5rem;margin: 20px auto;"
-          >{{article_data.title}}</div>
-          <div style="text-align: center;">
-            <span style="margin-right: 10px;color: #606266;">{{"#"+article_data.read_num+'次阅读'}}</span>
-            <el-link :underline="false" style="margin-right: 10px;font-size: 16px;">
-              <span>{{'#'+article_type[article_data.type]}}</span>
-              <i class="el-icon-view el-icon--right"></i>
-            </el-link>
-            <span style="margin-right: 10px;color: #606266;">{{"#"+article_data.time_str}}</span>
+    <el-row>
+      <el-col
+        class="main"
+        :xs="{span:24,offset:0}"
+        :sm="{span:16,offset:4}"
+        :md="{span:14,offset:5}"
+      >
+        <el-card shadow="hover">
+          <div slot="header">
+            <div
+              style="text-align: center;font-size: 1.5rem;margin: 20px auto;"
+            >{{article_data.title}}</div>
+            <div style="text-align: center;">
+              <span style="margin-right: 10px;color: #606266;">{{"#"+article_data.read_num+'次阅读'}}</span>
+              <el-link :underline="false" style="margin-right: 10px;font-size: 16px;">
+                <i class="el-icon-view el-icon--right"></i>
+                <span>{{article_type[article_data.type]}}</span>
+              </el-link>
+              <span style="margin-right: 10px;color: #606266;">
+                <i class="el-icon-time"></i>
+                {{article_data.time_str}}
+              </span>
+            </div>
           </div>
-        </div>
-        <MarkdownPreview :initialValue="article_data.content"></MarkdownPreview>
-      </el-card>
-    </el-col>
+          <MarkdownPreview :initialValue="article_data.content" theme="dark"></MarkdownPreview>
+        </el-card>
+      </el-col>
+    </el-row>
     <div style="position:fixed;
     right:10%;
     bottom:10%;">
@@ -78,7 +86,7 @@ export default {
   methods: {
     get_base() {
       this.axios
-        .post("http://192.168.0.103:5000/api/blog/article/base", {
+        .post("http://122.51.194.238:5000/api/blog/article/base", {
           aid: this.$route.params.aid
         })
         .then(response => {
@@ -125,4 +133,7 @@ export default {
 };
 </script>
 <style scoped>
+/* .main {
+  position:fixed;
+} */
 </style>

@@ -24,7 +24,7 @@ const blog_router = {
             meta: {
                 title: '博客写作'
             }
-        }
+        },
     ]
 }
 export default blog_router

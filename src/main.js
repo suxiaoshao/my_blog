@@ -4,11 +4,13 @@ import router from './router'
 import store from './store'
 import './plugins/element.js'
 import axios from 'axios'
+import VueParticles from 'vue-particles'
 
 Vue.config.productionTip = false
 axios.defaults.withCredentials = true;
 
 Vue.prototype.axios = axios;
+Vue.use(VueParticles)
 new Vue({
   router,
   store,

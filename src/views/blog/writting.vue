@@ -8,12 +8,12 @@
             <el-input placeholder="标题" v-model="title"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="value" placeholder="文章类型">
+            <el-select v-model="type" placeholder="文章类型">
               <el-option v-for="(item,index) in options" :key="index" :label="item" :value="index"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="post_content" :disabled="!post_allow">
+            <el-button @click="post_content" :disabled="!post_allow">
               上传
               <i class="el-icon-upload el-icon--right"></i>
             </el-button>
@@ -28,6 +28,7 @@
           :toolbars="{uploadImage:true,image:false}"
           @on-upload-image="post_jpg"
           v-model="markdown"
+          theme="dark"
         ></Markdown>
       </el-col>
     </el-row>
@@ -45,7 +46,7 @@ export default {
       markdown: "",
       title: "",
       loading: false,
-      value: ""
+      type: ""
     };
   },
   computed: {
@@ -54,9 +55,9 @@ export default {
     },
     post_allow() {
       return (
-        this.value >= 0 &&
-        this.value <= this.options.length &&
-        this.value !== "" &&
+        this.type >= 0 &&
+        this.type <= this.options.length &&
+        this.type !== "" &&
         this.markdown !== ""
       );
     }
@@ -71,7 +72,7 @@ export default {
         };
         this.axios
           .post(
-            "http://192.168.0.103:5000/api/blog/article/upload_pic",
+            "http://122.51.194.238:5000/api/blog/article/upload_pic",
             param,
             config
           )
@@ -92,9 +93,10 @@ export default {
     post_content() {
       this.loading = true;
       this.axios
-        .post("http://192.168.0.103:5000/api/blog/article/upload_content", {
+        .post("http://122.51.194.238:5000/api/blog/article/upload_content", {
           content: this.markdown,
-          title: this.title
+          title: this.title,
+          type:this.type
         })
         .then(response => {
           if (response.data.success) {

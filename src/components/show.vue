@@ -17,7 +17,11 @@
             </span>
           </div>
           <br />
-          <img src="http://122.51.194.238:5000/api/blog/home/img" class="image" />
+          <el-image :src="'http://122.51.194.238:5000/api/blog/home/img/'+img_key" lazy>
+            <div slot="placeholder" class="image-slot">
+              <img src="../assets/loading.png" alt="loading" class="image" />
+            </div>
+          </el-image>
         </el-card>
       </el-link>
     </el-row>
@@ -30,7 +34,8 @@ export default {
     title: String,
     type: Number,
     time_str: String,
-    article_url: String
+    article_url: String,
+    img_key: String
   },
   computed: {
     article_type() {

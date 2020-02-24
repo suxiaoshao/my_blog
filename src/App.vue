@@ -31,7 +31,7 @@ export default {
 <style>
 .vue-particles {
   position: fixed;
-  background-image: url("https://vue-particles.netlify.com/static/img/sky.871d198.jpg");
+  background-image: url("http://122.51.194.238:5000/api/blog/home/img/-1");
   background-size: cover;
   overflow: hidden;
   width: 100%;

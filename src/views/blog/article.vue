@@ -25,7 +25,7 @@
         :sm="{span:16,offset:4}"
         :md="{span:14,offset:5}"
       >
-        <el-card shadow="hover">
+        <el-card shadow="hover" style="background-color:rgba(255,255,255,0.7)">
           <div slot="header">
             <div
               style="text-align: center;font-size: 1.5rem;margin: 20px auto;"
@@ -42,7 +42,7 @@
               </span>
             </div>
           </div>
-          <MarkdownPreview :initialValue="article_data.content" theme="dark"></MarkdownPreview>
+          <MarkdownPreview :initialValue="article_data.content" theme="dark" style="background-color:transparent"></MarkdownPreview>
         </el-card>
       </el-col>
     </el-row>

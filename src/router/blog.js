@@ -18,7 +18,7 @@ const blog_router = {
             }
         },
         {
-            path: '/blog/writting/:aid',
+            path: '/blog/writting',
             name: 'blog_writting',
             component: writting,
             meta: {

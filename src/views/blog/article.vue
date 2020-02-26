@@ -42,7 +42,11 @@
               </span>
             </div>
           </div>
-          <MarkdownPreview :initialValue="article_data.content" theme="dark" style="background-color:transparent"></MarkdownPreview>
+          <MarkdownPreview
+            :initialValue="article_data.content"
+            theme="dark"
+            style="background-color:transparent"
+          ></MarkdownPreview>
         </el-card>
       </el-col>
     </el-row>
@@ -60,7 +64,7 @@
   </div>
 </template>
 <script>
-import { MarkdownPreview } from "vue-meditor";
+import MarkdownPreview from "../../components/markdown/preview";
 export default {
   name: "blog_article",
   components: {

@@ -35,7 +35,7 @@
   </div>
 </template>
 <script>
-import Markdown from "vue-meditor";
+import Markdown from "../../components/markdown/simple";
 export default {
   name: "blog_writting",
   components: {

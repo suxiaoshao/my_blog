@@ -2,6 +2,7 @@
   <div id="blog_article">
     <br />
     <br />
+<!-- 目录 -->
     <el-dialog title="目录" :visible.sync="dialogVisible" :fullscreen="is_phone">
       <el-menu default-active="2" class="el-menu-vertical-demo">
         <el-menu-item
@@ -18,6 +19,7 @@
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
+<!-- 文章内容 -->
     <el-row>
       <el-col
         class="main"
@@ -25,34 +27,11 @@
         :sm="{span:16,offset:4}"
         :md="{span:14,offset:5}"
       >
-        <el-card shadow="hover" style="background-color:rgba(255,255,255,0.7)">
-          <div slot="header">
-            <div
-              style="text-align: center;font-size: 1.5rem;margin: 20px auto;"
-            >{{article_data.title}}</div>
-            <div style="text-align: center;">
-              <span style="margin-right: 10px;color: #606266;">{{"#"+article_data.read_num+'次阅读'}}</span>
-              <el-link :underline="false" style="margin-right: 10px;font-size: 16px;">
-                <i class="el-icon-view el-icon--right"></i>
-                <span>{{article_type[article_data.type]}}</span>
-              </el-link>
-              <span style="margin-right: 10px;color: #606266;">
-                <i class="el-icon-time"></i>
-                {{article_data.time_str}}
-              </span>
-            </div>
-          </div>
-          <MarkdownPreview
-            :initialValue="article_data.content"
-            theme="dark"
-            style="background-color:transparent"
-          ></MarkdownPreview>
-        </el-card>
+        <article-content :article_data="article_data"></article-content>
       </el-col>
     </el-row>
-    <div style="position:fixed;
-    right:10%;
-    bottom:10%;">
+<!-- 工具球 -->
+    <div style="position:fixed;right:10%;bottom:10%;">
       <el-dropdown trigger="click" @command="handleCommand">
         <el-button type="primary" icon="el-icon-more-outline" circle></el-button>
         <el-dropdown-menu slot="dropdown">
@@ -64,14 +43,15 @@
   </div>
 </template>
 <script>
-import MarkdownPreview from "../../components/markdown/preview";
+import content from "../../components/article/article_show";
 export default {
   name: "blog_article",
   components: {
-    MarkdownPreview: MarkdownPreview
+    "article-content": content
   },
   data() {
     return {
+      // 文章数据
       article_data: {
         title: "",
         time_str: "",
@@ -80,24 +60,24 @@ export default {
         directory: [],
         aid: 0
       },
-      article_loading: true,
-      dialogVisible: false
+      dialogVisible: false // 目录是否显示
     };
   },
   mounted() {
     this.get_base();
   },
   methods: {
+    // 获取文章信息
     get_base() {
       this.axios
         .post("http://122.51.194.238:5000/api/blog/article/base", {
           aid: this.$route.params.aid
         })
         .then(response => {
+          // 成功返回正确数据后 页面名字和文章内容获取
           if (response.data.success) {
             this.article_data = response.data.article_data;
             window.document.title = response.data.article_data.title;
-            this.article_loading = false;
           } else {
             this.$alert("文章连接错误", "警告");
             this.$router.push({ name: "Home" });
@@ -107,6 +87,7 @@ export default {
           console.log(error);
         });
     },
+    // 工具球点击
     handleCommand(item) {
       if (item === "a") {
         document.body.scrollTop = 0;
@@ -115,23 +96,24 @@ export default {
         this.dialogVisible = true;
       }
     },
+    // 判断是否hash值和目录是否相同
     judge(directory_flag, item) {
       return "#" + encodeURI(item) === directory_flag;
     },
+    // 点击目录跳转到hash
     go_to_hash(hash) {
       window.location.hash = "#" + hash;
       this.dialogVisible = false;
     }
   },
   computed: {
+    // 获取页面hash值
     directory_flag() {
       return this.$route.hash;
     },
+    // 是否为手机
     is_phone() {
       return document.documentElement.clientWidth <= 750;
-    },
-    article_type() {
-      return this.$store.state.article_type;
     }
   }
 };

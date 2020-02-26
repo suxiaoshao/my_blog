@@ -2,7 +2,7 @@
   <div id="show">
     <el-row>
       <el-link :href="article_url" target="_blank">
-        <el-card :body-style="{ padding: '0px' }">
+        <el-card :body-style="{ padding: '0px' }" style="background-color:rgba(255,255,255,0.7)">
           <div class="title">
             <span>{{title}}</span>
           </div>

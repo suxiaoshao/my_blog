@@ -24,7 +24,12 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  window.document.title = to.meta.title;
-  next();
+  if (to.name === 'blog' || to.name === 'old_main') {
+    next({ name: 'Home' })
+  }
+  else {
+    window.document.title = to.meta.title;
+    next();
+  }
 })
 export default router

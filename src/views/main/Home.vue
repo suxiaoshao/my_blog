@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <navigation :point="[9,5,5,5]"></navigation>
+    <navigation :activeIndex="'0'"></navigation>
     <br />
     <el-row>
       <el-col :xs="{span:24,offset:0}" :sm="{span:12,offset:6}" :md="{span:10,offset:7}">
@@ -22,8 +22,8 @@
 
 <script>
 // @ is an alias to /src
-import navigation from "../components/Navigavition";
-import show from "../components/show";
+import navigation from "../../components/Navigavition";
+import show from "../../components/show";
 export default {
   name: "Home",
   components: {
@@ -39,10 +39,10 @@ export default {
     };
   },
   methods: {
-    get_base(find_condition) {
+    get_base() {
       this.axios
         .post("http://122.51.194.238:5000/api/blog/home/base", {
-          find_condition: find_condition
+          find_condition: this.find_condition
         })
         .then(response => {
           if (response.data.success) {
@@ -59,12 +59,12 @@ export default {
           console.log(error);
         });
     },
-    get_data(find_condition, limit_num, offset) {
+    get_data() {
       this.axios
         .post("http://122.51.194.238:5000/api/blog/home/article_list", {
-          find_condition: find_condition,
-          limit_num: limit_num,
-          offset: offset
+          find_condition: this.find_condition,
+          limit_num: this.limit_num,
+          offset: this.offset
         })
         .then(response => {
           if (response.data.success) {
@@ -82,9 +82,18 @@ export default {
         });
     }
   },
+  computed: {
+    find_condition() {
+      let find_condition = {};
+      Object.keys(this.$route.query).forEach(key => {
+        find_condition[key] = Number(this.$route.query[key]);
+      });
+      return find_condition;
+    }
+  },
   mounted() {
-    this.get_base({});
-    this.get_data({}, this.limit_num, this.offset);
+    this.get_base();
+    this.get_data();
   }
 };
 </script>

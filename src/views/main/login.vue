@@ -36,7 +36,7 @@
   </div>
 </template>
 <script>
-import { string_to_md5_3 } from "../assets/js/encryption";
+import { string_to_md5_3 } from "../../assets/js/encryption";
 export default {
   name: "login",
   data() {

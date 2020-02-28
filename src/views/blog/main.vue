@@ -1,6 +1,6 @@
 <template>
   <div id="blog_main">
-    <navigation :activeIndex="'0'"></navigation>
+    <navigation></navigation>
     <router-view></router-view>
   </div>
 </template>

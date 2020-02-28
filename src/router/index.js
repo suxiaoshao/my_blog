@@ -1,32 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import old_router from '../router/old_demo'
-import blog_router from '../router/blog'
-import login from '../views/login'
+import old_router from './routes/old_demo'
+import blog_router from './routes/blog'
+import main_router from './routes/main'
 import { is_login } from '../assets/js/login'
 
 Vue.use(VueRouter)
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home,
-    meta: {
-      title: '首页'
-    }
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: login,
-    meta: {
-      title: '登录'
-    }
-  },
   old_router,
   blog_router
-]
+].concat(main_router)
 
 const router = new VueRouter({
   mode: 'history',

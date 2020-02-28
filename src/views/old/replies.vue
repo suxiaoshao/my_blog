@@ -1,6 +1,6 @@
 <template>
   <div id="replies">
-    <navigation :point="[5,5,9,5]"></navigation>
+    <navigation activeIndex="2"></navigation>
     <br />
     <br />
     <el-row>

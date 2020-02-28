@@ -1,6 +1,6 @@
 <template>
   <div id="bilibili">
-    <navigation :point="[5,9,5,5]"></navigation>
+    <navigation activeIndex="1"></navigation>
     <br />
     <el-row>
       <el-col :xs="{span:24,offset:0}" :sm="{span:18,offset:3}" :md="{span:16,offset:4}">

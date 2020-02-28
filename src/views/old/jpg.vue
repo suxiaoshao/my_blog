@@ -1,6 +1,6 @@
 <template>
   <div id="jpg">
-    <navigation :point="[5,5,5,9]"></navigation>
+    <navigation activeIndex="3"></navigation>
     <br />
     <br />
     <el-row>
@@ -11,7 +11,7 @@
             :sm="{span:12}"
             :md="{span:12}"
             :lg="{span:8}"
-            v-for="(item,index) in jpg_list.slice((page-1)*len_view,page*len_view)"
+            v-for="(item,index) in real_list"
             :key="(index)"
           >
             <el-card :body-style="{ padding: '0px' }">
@@ -37,7 +37,7 @@
               :current-page.sync="page"
               :page-size="len_view"
               layout="prev, pager, next, jumper"
-              :total="jpg_list.length"
+              :total="data_count"
             ></el-pagination>
           </div>
         </el-col>
@@ -54,10 +54,10 @@ export default {
   },
   data() {
     return {
-      jpg_list: [],
-      len_view: 20,
+      data_count: 0,
+      len_view: 5,
       page: 1,
-      f_page: 1
+      real_list: []
     };
   },
   mounted() {
@@ -71,7 +71,8 @@ export default {
           if (response.data.success === false) {
             this.$alert("没图片了", "警告");
           } else {
-            this.jpg_list = response.data.data;
+            this.data_count = response.data.data_count;
+            this.get_list();
           }
         })
         .catch(error => {
@@ -79,8 +80,26 @@ export default {
         });
     },
     current_change() {
+      this.get_list();
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
+    },
+    get_list() {
+      this.axios
+        .post("http://122.51.194.238:5000/api/old/jpg/base", {
+          offset: (this.page - 1) * this.len_view,
+          limit: this.len_view
+        })
+        .then(response => {
+          if (response.data.success) {
+            this.real_list = response.data.data;
+          } else {
+            this.$alert("出错了，请刷新试试", "警告");
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 };

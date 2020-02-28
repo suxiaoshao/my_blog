@@ -1,6 +1,6 @@
 <template>
   <div id="wallpeper">
-    <navigation :point="[5,5,9,5]"></navigation>
+    <navigation></navigation>
     <br />
     <br />
     <el-row>

@@ -1,40 +1,68 @@
 <template>
-  <div class="Navigation">
-    <el-row :gutter="10">
-      <el-col :xs="{span:24,offset:0}" :sm="{span:16,offset:4}" :md="{span:12,offset:6}">
-        <el-row :gutter="10">
-          <el-col v-for="item in 4" :key="item" :span="point[item-1]">
-            <router-link :to="path[item-1]">
-              <div class="grid-content bg-purple">
-                <el-row>
-                  <el-col>
-                    <el-link :underline="false">{{names[item-1]}}</el-link>
-                  </el-col>
-                </el-row>
-              </div>
-            </router-link>
-          </el-col>
-        </el-row>
-      </el-col>
-    </el-row>
+  <div class="Navigation" @mouseenter="enter" @mouseleave="leave">
+    <el-menu
+      v-if="!is_phone"
+      :default-active="activeIndex"
+      class="el-menu-demo"
+      mode="horizontal"
+      @select="select"
+      :style="style[style_index]"
+    >
+      <el-menu-item
+        v-for="(item,index) in navigation_item"
+        :key="index"
+        :index="String(index)"
+      >{{item.name}}</el-menu-item>
+    </el-menu>
+    <el-menu
+      v-if="is_phone"
+      :default-active="activeIndex"
+      class="el-menu-demo"
+      mode="horizontal"
+      @select="select"
+      :style="style[style_index]"
+    >
+      <el-menu-item
+        v-for="(item,index) in navigation_item"
+        :key="index"
+        :index="String(index)"
+      >{{item.name}}</el-menu-item>
+    </el-menu>
   </div>
 </template>
 <script>
 export default {
   name: "Navigation",
-  props: {
-    point: Array
-  },
   data() {
     return {
+      style: [
+        "background-color:rgba(255,255,255,0.9)",
+        "background-color:rgba(255,255,255,0.6)"
+      ],
+      style_index: 1
     };
   },
-  computed: {
-    names(){
-      return this.$store.state.navigation_names
+  props: {
+    activeIndex: String
+  },
+  methods: {
+    select(key) {
+      let real_key = Number(key);
+      this.$router.push(this.navigation_item[real_key].path);
     },
-    path(){
-      return this.$store.state.navigation_path
+    leave() {
+      this.style_index = 1;
+    },
+    enter() {
+      this.style_index = 0;
+    }
+  },
+  computed: {
+    is_phone() {
+      return document.documentElement.clientWidth <= 750;
+    },
+    navigation_item() {
+      return this.$store.state.navigation_item;
     }
   }
 };

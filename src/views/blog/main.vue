@@ -1,6 +1,6 @@
 <template>
   <div id="blog_main">
-    <navigation :point="[6,6,6,6]"></navigation>
+    <navigation :activeIndex="'0'"></navigation>
     <router-view></router-view>
   </div>
 </template>

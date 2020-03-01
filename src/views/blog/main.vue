@@ -1,7 +1,10 @@
 <template>
   <div id="blog_main">
-    <navigation></navigation>
+    <br />
+    <br />
+    <br />
     <router-view></router-view>
+    <navigation></navigation>
   </div>
 </template>
 <script>

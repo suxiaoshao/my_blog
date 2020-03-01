@@ -12,18 +12,18 @@ export default new Vuex.Store({
       },
       {
         name: '分类',
-        path: { name: 'classification' }
+        path: { name: 'classification', params: { tid: 0 } }
       },
-      {
-        name: "评论",
-        path: { name: 'replies' }
-      },
-      {
-        name: '图片',
-        path: { name: 'jpg' }
-      }
+      // {
+      //   name: "评论",
+      //   path: { name: 'replies' }
+      // },
+      // {
+      //   name: '图片',
+      //   path: { name: 'jpg' }
+      // }
     ],
-    article_type: ['学习', '代码', '其他','工具']
+    article_type: ['学习', '代码', '其他', '工具']
   },
   mutations: {
   },

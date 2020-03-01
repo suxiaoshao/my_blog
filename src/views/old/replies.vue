@@ -1,6 +1,5 @@
 <template>
   <div id="replies">
-    <navigation activeIndex="2"></navigation>
     <br />
     <br />
     <el-row>
@@ -33,12 +32,8 @@
   </div>
 </template>
 <script>
-import navigation from "../../components/Navigavition";
 export default {
   name: "replies",
-  components: {
-    navigation: navigation
-  },
   data() {
     return {
       content: "还没评论呢",

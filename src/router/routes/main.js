@@ -19,7 +19,7 @@ const main_router = [
         }
     },
     {
-        path: '/classification',
+        path: '/classification/:tid',
         name: 'classification',
         component:classificaton,
         meta:{

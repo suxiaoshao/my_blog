@@ -1,6 +1,5 @@
 <template>
   <div id="jpg">
-    <navigation activeIndex="3"></navigation>
     <br />
     <br />
     <el-row>
@@ -46,12 +45,8 @@
   </div>
 </template>
 <script>
-import navigation from "../../components/Navigavition";
 export default {
   name: "jpg",
-  components: {
-    navigation: navigation
-  },
   data() {
     return {
       data_count: 0,

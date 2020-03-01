@@ -1,6 +1,5 @@
 <template>
   <div id="wallpeper">
-    <navigation></navigation>
     <br />
     <br />
     <el-row>
@@ -31,12 +30,8 @@
   </div>
 </template>
 <script>
-import navigation from "../../components/Navigavition";
 export default {
   name: "wallpaper",
-  components: {
-    navigation: navigation
-  },
   data() {
     return {
       url: ""

@@ -68,12 +68,10 @@ export default {
 };
 </script>
 <style scoped>
-.bg-purple {
-  background: #e5e9f2;
-}
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
-  text-align: center;
+.Navigation {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
 }
 </style>

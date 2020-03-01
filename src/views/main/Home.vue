@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    <navigation :activeIndex="'0'"></navigation>
+    <br />
+    <br />
+    <br />
+    <br />
     <br />
     <el-row>
       <el-col :xs="{span:24,offset:0}" :sm="{span:12,offset:6}" :md="{span:10,offset:7}">
@@ -17,6 +20,7 @@
         </div>
       </el-col>
     </el-row>
+    <navigation :activeIndex="'0'"></navigation>
   </div>
 </template>
 

@@ -1,6 +1,5 @@
 <template>
   <div id="bilibili">
-    <navigation activeIndex="1"></navigation>
     <br />
     <el-row>
       <el-col :xs="{span:24,offset:0}" :sm="{span:18,offset:3}" :md="{span:16,offset:4}">
@@ -75,12 +74,8 @@
   </div>
 </template>
 <script>
-import navigation from "../../components/Navigavition";
 export default {
   name: "bilibili",
-  components: {
-    navigation: navigation
-  },
   data() {
     return {
       main_av: {

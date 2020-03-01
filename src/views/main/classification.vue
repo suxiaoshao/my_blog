@@ -1,17 +1,19 @@
 <template>
   <div id="classification">
-    <navigation :activeIndex="'1'"></navigation>
+    <br />
+    <br />
+    <br />
     <br />
     <el-row>
       <el-col :xs="{span:24,offset:0}" :sm="{span:12,offset:6}" :md="{span:10,offset:7}">
-        <el-link
+        <el-button
           v-for="(item,index) in article_type"
           :key="item"
           :href="'/classification?type='+String(index)"
           :disabled="index===Number(type)"
-        >
-          <el-button type="primary" :disabled="index===Number(type)">{{item}}</el-button>
-        </el-link>&nbsp;&nbsp;&nbsp;
+          type="primary"
+          @click="go_to_url(index)"
+        >{{item}}</el-button>
         <br />
         <br />
         <div v-for="(item,index) in all_data" :key="index">
@@ -21,12 +23,14 @@
             :type="Number(item.type)"
             :time_str="item.time_str"
             :img_key="String(index)"
+            @click="go_to_url(index)"
           ></show>
           <br />
           <br />
         </div>
       </el-col>
     </el-row>
+    <navigation :activeIndex="'1'"></navigation>
   </div>
 </template>
 
@@ -48,6 +52,11 @@ export default {
     show: show
   },
   methods: {
+    go_to_url(tid) {
+      this.$router.push({ name: "classification", params: { tid: tid } });
+      this.get_base();
+      this.get_data();
+    },
     get_base() {
       this.axios
         .post("http://122.51.194.238:5000/api/blog/home/base", {
@@ -93,17 +102,14 @@ export default {
   },
   computed: {
     find_condition() {
-      let find_condition = {};
-      Object.keys(this.$route.query).forEach(key => {
-        find_condition[key] = Number(this.$route.query[key]);
-      });
+      let find_condition = { type: Number(this.$route.params.tid) };
       return find_condition;
     },
     article_type() {
       return this.$store.state.article_type;
     },
     type() {
-      return this.$route.query.type;
+      return Number(this.$route.params.tid);
     }
   },
   mounted() {

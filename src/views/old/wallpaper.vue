@@ -44,7 +44,7 @@ export default {
     real_url() {
       let url_list = this.url.split("/");
       return (
-        "http://122.51.194.238:5000/api/old/wallpaper/img/" +
+        "http://www.sushao.top//api/old/wallpaper/img/" +
         url_list[url_list.length - 2] +
         "===" +
         url_list[url_list.length - 1]
@@ -54,7 +54,7 @@ export default {
   methods: {
     get_main_json() {
       this.axios
-        .get("http://122.51.194.238:5000/api/old/wallpaper/base")
+        .get("http://www.sushao.top//api/old/wallpaper/base")
         .then(response => {
           if (response.data.success === true) {
             this.url = response.data.data.url;
@@ -68,7 +68,7 @@ export default {
     },
     delete_wallpaper() {
       this.axios
-        .post("http://122.51.194.238:5000/api/old/wallpaper/base", {
+        .post("http://www.sushao.top//api/old/wallpaper/base", {
           ok: false,
           url: this.url
         })
@@ -89,7 +89,7 @@ export default {
     },
     retain_wallpaper() {
       this.axios
-        .post("http://122.51.194.238:5000/api/old/wallpaper/base", {
+        .post("http://www.sushao.top//api/old/wallpaper/base", {
           ok: true,
           url: this.url
         })

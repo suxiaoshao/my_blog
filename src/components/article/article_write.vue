@@ -50,7 +50,7 @@ export default {
         };
         this.axios
           .post(
-            "http://122.51.194.238:5000/api/blog/article/upload_pic",
+            "http://www.sushao.top//api/blog/article/upload_pic",
             param,
             config
           )

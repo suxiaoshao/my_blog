@@ -67,7 +67,7 @@ export default {
     post_content() {
       this.loading = true;
       this.axios
-        .post("http://122.51.194.238:5000/api/blog/article/upload_content", {
+        .post("http://www.sushao.top//api/blog/article/upload_content", {
           content: this.markdown,
           title: this.title,
           type: this.type

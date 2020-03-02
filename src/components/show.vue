@@ -17,7 +17,7 @@
             </span>
           </div>
           <br />
-          <el-image :src="'http://122.51.194.238:5000/api/blog/home/img/'+img_key" lazy>
+          <el-image :src="'http://www.sushao.top//api/blog/home/img/'+img_key" lazy>
             <div slot="placeholder" class="image-slot">
               <img src="../assets/image/loading.png" alt="loading" class="image" />
             </div>

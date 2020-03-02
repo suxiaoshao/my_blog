@@ -14,7 +14,7 @@
             :key="(index)"
           >
             <el-card :body-style="{ padding: '0px' }">
-              <img :src="'http://122.51.194.238:5000/api/old/jpg/img/'+item.src" class="image" />
+              <img :src="'http://www.sushao.top//api/old/jpg/img/'+item.src" class="image" />
               <div style="padding: 14px;">
                 <div class="bottom clearfix">
                   <el-link
@@ -61,7 +61,7 @@ export default {
   methods: {
     get_main() {
       this.axios
-        .get("http://122.51.194.238:5000/api/old/jpg/base")
+        .get("http://www.sushao.top//api/old/jpg/base")
         .then(response => {
           if (response.data.success === false) {
             this.$alert("没图片了", "警告");
@@ -81,7 +81,7 @@ export default {
     },
     get_list() {
       this.axios
-        .post("http://122.51.194.238:5000/api/old/jpg/base", {
+        .post("http://www.sushao.top//api/old/jpg/base", {
           offset: (this.page - 1) * this.len_view,
           limit: this.len_view
         })

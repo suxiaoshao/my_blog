@@ -46,7 +46,7 @@ export default {
   methods: {
     get_main_json() {
       this.axios
-        .get("http://122.51.194.238:5000/api/old/replies/base")
+        .get("http://www.sushao.top//api/old/replies/base")
         .then(response => {
           if (response.data.success === true) {
             this.content = response.data.data.content;
@@ -61,7 +61,7 @@ export default {
     },
     delete_reply() {
       this.axios
-        .post("http://122.51.194.238:5000/api/old/replies/base", {
+        .post("http://www.sushao.top//api/old/replies/base", {
           ok: false,
           data: { content: this.content, url: this.url }
         })
@@ -82,7 +82,7 @@ export default {
     },
     retain_reply() {
       this.axios
-        .post("http://122.51.194.238:5000/api/old/replies/base", {
+        .post("http://www.sushao.top//api/old/replies/base", {
           ok: true,
           data: { content: this.content, url: this.url }
         })

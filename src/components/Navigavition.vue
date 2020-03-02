@@ -39,7 +39,25 @@ export default {
         "background-color:rgba(255,255,255,0.9)",
         "background-color:rgba(255,255,255,0.6)"
       ],
-      style_index: 1
+      style_index: 1,
+      navigation_item: [
+        {
+          name: "首页",
+          path: { name: "Home" }
+        },
+        {
+          name: "分类",
+          path: { name: "classification", params: { tid: 0 } }
+        }
+        // {
+        //   name: "评论",
+        //   path: { name: 'replies' }
+        // },
+        // {
+        //   name: '图片',
+        //   path: { name: 'jpg' }
+        // }
+      ]
     };
   },
   props: {
@@ -60,9 +78,6 @@ export default {
   computed: {
     is_phone() {
       return document.documentElement.clientWidth <= 750;
-    },
-    navigation_item() {
-      return this.$store.state.navigation_item;
     }
   }
 };

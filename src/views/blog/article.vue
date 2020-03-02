@@ -2,7 +2,7 @@
   <div id="blog_article">
     <br />
     <br />
-<!-- 目录 -->
+    <!-- 目录 -->
     <el-dialog title="目录" :visible.sync="dialogVisible" :fullscreen="is_phone">
       <el-menu default-active="2" class="el-menu-vertical-demo">
         <el-menu-item
@@ -19,7 +19,7 @@
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
-<!-- 文章内容 -->
+    <!-- 文章内容 -->
     <el-row>
       <el-col
         class="main"
@@ -30,7 +30,7 @@
         <article-content :article_data="article_data"></article-content>
       </el-col>
     </el-row>
-<!-- 工具球 -->
+    <!-- 工具球 -->
     <div style="position:fixed;right:10%;bottom:10%;">
       <el-dropdown trigger="click" @command="handleCommand">
         <el-button type="primary" icon="el-icon-more-outline" circle></el-button>
@@ -103,6 +103,7 @@ export default {
     // 点击目录跳转到hash
     go_to_hash(hash) {
       window.location.hash = "#" + hash;
+      window.document.title = this.article_data.title;
       this.dialogVisible = false;
     }
   },

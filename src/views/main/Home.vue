@@ -6,7 +6,7 @@
     <br />
     <br />
     <el-row>
-      <el-col :xs="{span:24,offset:0}" :sm="{span:12,offset:6}" :md="{span:10,offset:7}">
+      <el-col :xs="{span:24,offset:0}" :sm="{span:14,offset:5}" :md="{span:12,offset:6}">
         <div v-for="(item,index) in all_data" :key="index">
           <show
             :title="item.title"

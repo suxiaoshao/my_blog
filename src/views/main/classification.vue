@@ -5,7 +5,7 @@
     <br />
     <br />
     <el-row>
-      <el-col :xs="{span:24,offset:0}" :sm="{span:12,offset:6}" :md="{span:10,offset:7}">
+      <el-col :xs="{span:24,offset:0}" :sm="{span:14,offset:5}" :md="{span:12,offset:6}">
         <el-button
           v-for="(item,index) in article_type"
           :key="item"
@@ -35,16 +35,18 @@
 </template>
 
 <script>
-import navigation from "../../components/Navigavition";
-import show from "../../components/show";
-export default {
+  import navigation from "../../components/Navigavition";
+  import show from "../../components/show";
+
+  export default {
   name: "classification",
   data() {
     return {
       article_num: 0,
       offset: 0,
       limit_num: 20,
-      all_data: []
+      all_data: [],
+      article_type:['学习', '代码', '其他', '工具']
     };
   },
   components: {
@@ -101,13 +103,6 @@ export default {
     }
   },
   computed: {
-    find_condition() {
-      let find_condition = { type: Number(this.$route.params.tid) };
-      return find_condition;
-    },
-    article_type() {
-      return this.$store.state.article_type;
-    },
     type() {
       return Number(this.$route.params.tid);
     }

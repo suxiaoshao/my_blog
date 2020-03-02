@@ -7,7 +7,12 @@
             <span>{{title}}</span>
           </div>
           <div style="text-align: center;">
-            <el-link :underline="false" style="margin-right: 10px;font-size: 16px;">
+            <el-link
+              :underline="false"
+              style="margin-right: 10px;font-size: 16px;"
+              target="_blank"
+              :href="'/classification/'+String(type)"
+            >
               <i class="el-icon-view el-icon--right"></i>
               <span>{{article_type[type]}}</span>
             </el-link>
@@ -37,9 +42,9 @@ export default {
     article_url: String,
     img_key: String
   },
-  computed: {
-    article_type() {
-      return this.$store.state.article_type;
+  data(){
+    return {
+      article_type:['学习', '代码', '其他', '工具']
     }
   }
 };

@@ -45,13 +45,11 @@ export default {
       markdown: "", // markdown内容
       title: "", // 标题
       loading: false, // 编辑和预览区的loading属性
-      type: "" //文章类型
+      type: "", //文章类型
+      options:['学习', '代码', '其他', '工具']
     };
   },
   computed: {
-    options() {
-      return this.$store.state.article_type; // 文章类型列表
-    },
     post_allow() {
       //是否可以上传
       return (

@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+// import Vue from 'vue'
+// import VueRouter from 'vue-router'
 import old_router from './routes/old_demo'
 import blog_router from './routes/blog'
 import main_router from './routes/main'

@@ -45,7 +45,7 @@ export default {
   methods: {
     get_base() {
       this.axios
-        .post("http://www.sushao.top//api/blog/home/base", {
+        .post("http://www.sushao.top/api/blog/home/base", {
           find_condition: this.find_condition
         })
         .then(response => {
@@ -65,7 +65,7 @@ export default {
     },
     get_data() {
       this.axios
-        .post("http://www.sushao.top//api/blog/home/article_list", {
+        .post("http://www.sushao.top/api/blog/home/article_list", {
           find_condition: this.find_condition,
           limit_num: this.limit_num,
           offset: this.offset

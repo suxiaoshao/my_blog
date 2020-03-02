@@ -1,8 +1,8 @@
-import axios from 'axios'
+// import axios from 'axios'
 axios.defaults.withCredentials = true;
 function is_login(next) {
     axios
-        .post('http://www.sushao.top//api/blog/home/is_login')
+        .post('http://www.sushao.top/api/blog/home/is_login')
         .then(response => {
             if (response.data.success) {
                 next()

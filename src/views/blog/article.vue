@@ -70,7 +70,7 @@ export default {
     // 获取文章信息
     get_base() {
       this.axios
-        .post("http://www.sushao.top//api/blog/article/base", {
+        .post("http://www.sushao.top/api/blog/article/base", {
           aid: this.$route.params.aid
         })
         .then(response => {

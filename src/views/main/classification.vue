@@ -35,10 +35,10 @@
 </template>
 
 <script>
-  import navigation from "../../components/Navigavition";
-  import show from "../../components/show";
+import navigation from "../../components/Navigavition";
+import show from "../../components/show";
 
-  export default {
+export default {
   name: "classification",
   data() {
     return {
@@ -46,7 +46,7 @@
       offset: 0,
       limit_num: 20,
       all_data: [],
-      article_type:['学习', '代码', '其他', '工具']
+      article_type: ["学习", "代码", "其他", "工具"]
     };
   },
   components: {
@@ -61,7 +61,7 @@
     },
     get_base() {
       this.axios
-        .post("http://www.sushao.top//api/blog/home/base", {
+        .post("http://www.sushao.top/api/blog/home/base", {
           find_condition: this.find_condition
         })
         .then(response => {
@@ -81,7 +81,7 @@
     },
     get_data() {
       this.axios
-        .post("http://www.sushao.top//api/blog/home/article_list", {
+        .post("http://www.sushao.top/api/blog/home/article_list", {
           find_condition: this.find_condition,
           limit_num: this.limit_num,
           offset: this.offset
@@ -105,6 +105,9 @@
   computed: {
     type() {
       return Number(this.$route.params.tid);
+    },
+    find_condition() {
+      return { type: this.type };
     }
   },
   mounted() {

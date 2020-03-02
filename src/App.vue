@@ -31,7 +31,7 @@ export default {
 <style>
 .vue-particles {
   position: fixed;
-  background-image: url("http://www.sushao.top//api/blog/home/img/-1");
+  background-image: url("http://www.sushao.top/api/blog/home/img/-1");
   background-size: cover;
   overflow: hidden;
   width: 100%;

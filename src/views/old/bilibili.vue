@@ -91,7 +91,7 @@ export default {
   methods: {
     get_base() {
       this.axios
-        .get("http://www.sushao.top//api/old/bilibili/base")
+        .get("http://www.sushao.top/api/old/bilibili/base")
         .then(response => {
           if (response.data.ok) {
             this.main_av = response.data.data;
@@ -110,7 +110,7 @@ export default {
     },
     get_recommended(aid) {
       this.axios
-        .post("http://www.sushao.top//api/old/bilibili/recommended", {
+        .post("http://www.sushao.top/api/old/bilibili/recommended", {
           aid: aid
         })
         .then(response => {
@@ -133,7 +133,7 @@ export default {
     post_av_save(index) {
       this.axios
         .post(
-          "http://www.sushao.top//api/old/bilibili/av_save",
+          "http://www.sushao.top/api/old/bilibili/av_save",
           this.recommended[index]
         )
         .then(response => {
@@ -158,7 +158,7 @@ export default {
     },
     post_update() {
       this.axios
-        .post("http://www.sushao.top//api/old/bilibili/base", this.main_av)
+        .post("http://www.sushao.top/api/old/bilibili/base", this.main_av)
         .then(response => {
           if (response.data.ok) {
             this.get_base();

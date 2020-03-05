@@ -53,17 +53,17 @@ export default {
     return {
       // 文章数据
       article_data: {
-        title: "",
-        time_str: "",
-        content: "",
-        time_stamp: 0,
-        directory: [],
-        aid: 0
+        title: "", // 文章标题
+        time_str: "", // 时间字符串
+        content: "", // 文章内容
+        time_stamp: 0, // 时间戳
+        directory: [], // 目录
       },
       dialogVisible: false // 目录是否显示
     };
   },
   mounted() {
+    // 页面加载时，获取文章信息
     this.get_base();
   },
   methods: {
@@ -71,7 +71,7 @@ export default {
     get_base() {
       this.axios
         .post("http://www.sushao.top/api/blog/article/base", {
-          aid: this.$route.params.aid
+          aid: this.aid
         })
         .then(response => {
           // 成功返回正确数据后 页面名字和文章内容获取
@@ -115,6 +115,10 @@ export default {
     // 是否为手机
     is_phone() {
       return document.documentElement.clientWidth <= 750;
+    },
+    // 文章的aid
+    aid(){
+      return this.$route.params.aid
     }
   }
 };

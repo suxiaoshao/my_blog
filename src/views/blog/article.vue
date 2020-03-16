@@ -1,5 +1,5 @@
 <template>
-  <div id="blog_article">
+  <div id="blog_article" v-loading="loading">
     <br />
     <br />
     <!-- 目录 -->
@@ -57,9 +57,10 @@ export default {
         time_str: "", // 时间字符串
         content: "", // 文章内容
         time_stamp: 0, // 时间戳
-        directory: [], // 目录
+        directory: [] // 目录
       },
-      dialogVisible: false // 目录是否显示
+      dialogVisible: false, // 目录是否显示
+      loading: false
     };
   },
   mounted() {
@@ -69,6 +70,7 @@ export default {
   methods: {
     // 获取文章信息
     get_base() {
+      this.loading = true;
       this.axios
         .post("http://www.sushao.top/api/blog/article/base", {
           aid: this.aid
@@ -76,9 +78,11 @@ export default {
         .then(response => {
           // 成功返回正确数据后 页面名字和文章内容获取
           if (response.data.success) {
+            this.loading = false;
             this.article_data = response.data.article_data;
             window.document.title = response.data.article_data.title;
           } else {
+            this.loading = false;
             this.$alert("文章连接错误", "警告");
             this.$router.push({ name: "Home" });
           }
@@ -117,8 +121,8 @@ export default {
       return document.documentElement.clientWidth <= 750;
     },
     // 文章的aid
-    aid(){
-      return this.$route.params.aid
+    aid() {
+      return this.$route.params.aid;
     }
   }
 };

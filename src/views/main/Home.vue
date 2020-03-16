@@ -5,13 +5,13 @@
     <br />
     <br />
     <br />
-    <el-row>
+    <el-row v-loading="loading">
       <el-col :xs="{span:24,offset:0}" :sm="{span:14,offset:5}" :md="{span:12,offset:6}">
         <!-- 文章展示 -->
         <div v-for="(item,index) in all_data" :key="index">
           <show
             :title="item.title"
-            :article_url="'/blog/article/'+String(item.aid)"
+            :article_aid="String(item.aid)"
             :type="Number(item.type)"
             :time_str="item.time_str"
             :img_key="String(index)"
@@ -19,7 +19,7 @@
           <br />
           <br />
         </div>
-        <div class="block" style="background-color:rgba(255,255,255, 1)">
+        <div class="block" style="background-color:rgba(255,255,255, 0.7)">
           <el-pagination
             :hide-on-single-page="true"
             @current-change="handleCurrentChange"
@@ -51,7 +51,8 @@ export default {
       article_num: 0, // 文章总数
       limit_num: 10, // 获取文章list的总数
       all_data: [], //文章list
-      real_page: this.$route.query.page //显示的页面数量
+      real_page: this.$route.query.page, //显示的页面数量
+      loading: false //页面是否加载
     };
   },
   computed: {
@@ -72,10 +73,10 @@ export default {
     handleCurrentChange(val) {
       this.$router.push({ name: "Home", query: { page: val } });
       this.get_base();
-      this.get_data();
     },
     // 获取基本信息
     get_base() {
+      this.loading = true;
       this.axios
         .post("http://www.sushao.top/api/blog/home/base", {
           find_condition: {}
@@ -83,7 +84,25 @@ export default {
         .then(response => {
           if (response.data.success) {
             this.article_num = response.data.article_num;
+            // 如果还没有文章
+            if (this.article_num === 0) {
+              this.loading = false;
+              // 提示信息
+              this.$message({
+                showClose: true,
+                message: "还没有篇文章",
+                type: "warning"
+              });
+              // 删除all_data
+              this.all_data = [];
+            } else {
+              // 有文章的话访问
+              this.get_data();
+              document.body.scrollTop = 0;
+              document.documentElement.scrollTop = 0;
+            }
           } else {
+            this.loading = false;
             this.$message({
               showClose: true,
               message: "发生错误,请刷新试试",
@@ -97,6 +116,7 @@ export default {
     },
     // 获取文章list数据
     get_data() {
+      this.loading = true;
       this.axios
         .post("http://www.sushao.top/api/blog/home/article_list", {
           find_condition: {}, //文章的限制
@@ -105,8 +125,10 @@ export default {
         })
         .then(response => {
           if (response.data.success) {
+            this.loading = false;
             this.all_data = response.data.data;
           } else {
+            this.loading = false;
             // 如果数据错误,退回第一页
             this.$message({
               showClose: true,
@@ -115,7 +137,6 @@ export default {
             });
             this.$router.push({ name: "Home" });
             this.get_base();
-            this.get_data();
           }
         })
         .catch(error => {
@@ -125,7 +146,6 @@ export default {
   },
   mounted() {
     this.get_base();
-    this.get_data();
   }
 };
 </script>

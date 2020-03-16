@@ -4,7 +4,7 @@
     <br />
     <br />
     <br />
-    <el-row>
+    <el-row v-loading="loading">
       <el-col :xs="{span:24,offset:0}" :sm="{span:14,offset:5}" :md="{span:12,offset:6}">
         <!-- 文章类型选择器 -->
         <el-button
@@ -22,7 +22,7 @@
         <div v-for="(item,index) in all_data" :key="index">
           <show
             :title="item.title"
-            :article_url="'/blog/article/'+String(item.aid)"
+            :article_aid="String(item.aid)"
             :type="Number(item.type)"
             :time_str="item.time_str"
             :img_key="String(index)"
@@ -31,7 +31,7 @@
           <br />
           <br />
         </div>
-        <div class="block" style="background-color:rgba(255,255,255, 1)">
+        <div class="block" style="background-color:rgba(255,255,255, 0.7)">
           <el-pagination
             :hide-on-single-page="true"
             @current-change="handleCurrentChange"
@@ -59,7 +59,8 @@ export default {
       limit_num: 20, // 获取文章list的总数
       all_data: [], //文章list
       article_type: ["学习", "代码", "其他", "工具"], // 文章类型总数
-      real_page: this.$route.query.page //显示的页面数量
+      real_page: this.$route.query.page, //显示的页面数量
+      loading: false //页面是否在加载中
     };
   },
   // 导入文章展示组件show和导航栏组件navigation
@@ -75,16 +76,15 @@ export default {
         query: { page: val }
       });
       this.get_base();
-      this.get_data();
     },
     // 根据类型选择器跳转到相应url
     go_to_url(tid) {
       this.$router.push({ name: "classification", params: { tid: tid } });
       this.get_base();
-      this.get_data();
     },
     // 获取文章总数
     get_base() {
+      this.loading = true;
       this.axios
         .post("http://www.sushao.top/api/blog/home/base", {
           find_condition: { type: this.type }
@@ -92,12 +92,26 @@ export default {
         .then(response => {
           if (response.data.success) {
             this.article_num = response.data.article_num;
+            if (this.article_num === 0) {
+              this.$message({
+                showClose: true,
+                message: "还没有篇文章",
+                type: "warning"
+              });
+              this.all_data = [];
+              this.loading = false;
+            } else {
+              this.get_data();
+              document.body.scrollTop = 0;
+              document.documentElement.scrollTop = 0;
+            }
           } else {
             this.$message({
               showClose: true,
               message: "发生错误,请刷新试试",
               type: "error"
             });
+            this.loading = false;
           }
         })
         .catch(error => {
@@ -106,6 +120,7 @@ export default {
     },
     // 获取文章list数据
     get_data() {
+      this.loading = true;
       this.axios
         .post("http://www.sushao.top/api/blog/home/article_list", {
           find_condition: { type: this.type }, //文章的限制
@@ -114,8 +129,10 @@ export default {
         })
         .then(response => {
           if (response.data.success) {
+            this.loading = false;
             this.all_data = response.data.data;
           } else {
+            this.loading = false;
             this.$message({
               showClose: true,
               message: "发生错误,自动转到第一页",
@@ -123,7 +140,6 @@ export default {
             });
             this.$router.push({ name: "classification", params: { tid: tid } });
             this.get_base();
-            this.get_data();
           }
         })
         .catch(error => {
@@ -152,7 +168,6 @@ export default {
   mounted() {
     // 获取文章总数和list数据
     this.get_base();
-    this.get_data();
   }
 };
 </script>

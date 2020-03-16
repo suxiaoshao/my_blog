@@ -1,8 +1,11 @@
 <template>
   <div id="show">
     <el-row>
-      <el-link :href="article_url" target="_blank">
-        <el-card :body-style="{ padding: '0px' }" style="background-color:rgba(255,255,255,0.7)">
+      <el-link @click="go_to_article">
+        <el-card
+          :body-style="{ padding: '0px' }"
+          style="background-color:rgba(255,255,255,0.7)"
+        >
           <div class="title">
             <span>{{title}}</span>
           </div>
@@ -10,8 +13,7 @@
             <el-link
               :underline="false"
               style="margin-right: 10px;font-size: 16px;"
-              target="_blank"
-              :href="'/classification/'+String(type)"
+              @click="go_to_classification"
             >
               <i class="el-icon-view el-icon--right"></i>
               <span>{{article_type[type]}}</span>
@@ -39,12 +41,26 @@ export default {
     title: String,
     type: Number,
     time_str: String,
-    article_url: String,
+    article_aid: String,
     img_key: String
   },
-  data(){
+  data() {
     return {
-      article_type:['学习', '代码', '其他', '工具']
+      article_type: ["学习", "代码", "其他", "工具"]
+    };
+  },
+  methods: {
+    go_to_article() {
+      this.$router.push({
+        name: "blog_article",
+        params: { aid: this.article_aid }
+      });
+    },
+    go_to_classification(){
+      this.$router.push({
+        name: "classification",
+        params: { tid: this.type }
+      });
     }
   }
 };

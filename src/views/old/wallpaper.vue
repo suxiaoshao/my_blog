@@ -1,5 +1,5 @@
 <template>
-  <div id="wallpeper">
+  <div id="wallpeper" v-loading="loading">
     <br />
     <br />
     <el-row>
@@ -34,7 +34,8 @@ export default {
   name: "wallpaper",
   data() {
     return {
-      url: ""
+      url: "",
+      loading: false
     };
   },
   mounted() {
@@ -53,12 +54,15 @@ export default {
   },
   methods: {
     get_main_json() {
+      this.loading = true;
       this.axios
         .get("http://www.sushao.top/api/old/wallpaper/base")
         .then(response => {
           if (response.data.success === true) {
             this.url = response.data.data.url;
+            this.loading = false;
           } else {
+            this.loading = false;
             this.$alert("请刷新试试", "没有了");
           }
         })
@@ -67,6 +71,7 @@ export default {
         });
     },
     delete_wallpaper() {
+      this.loading = true;
       this.axios
         .post("http://www.sushao.top/api/old/wallpaper/base", {
           ok: false,
@@ -80,6 +85,7 @@ export default {
             });
             this.get_main_json();
           } else {
+            this.loading = false;
             this.$alert("请刷新试试", "出错了");
           }
         })
@@ -88,6 +94,7 @@ export default {
         });
     },
     retain_wallpaper() {
+      this.loading = true;
       this.axios
         .post("http://www.sushao.top/api/old/wallpaper/base", {
           ok: true,
@@ -95,12 +102,14 @@ export default {
         })
         .then(response => {
           if (response.data.success === true) {
+            this.loading = false;
             this.$message({
               message: "成功保留壁纸",
               type: "success"
             });
             this.get_main_json();
           } else {
+            this.loading = false;
             this.$alert("请刷新试试", "出错了");
           }
         })

@@ -1,5 +1,6 @@
 <template>
   <div class="Navigation" @mouseenter="enter" @mouseleave="leave">
+    <!-- 电脑的导航栏 -->
     <el-menu
       v-if="!is_phone"
       :default-active="activeIndex"
@@ -13,7 +14,16 @@
         :key="index"
         :index="String(index)"
       >{{item.name}}</el-menu-item>
+      <el-menu-item
+        :index="String(navigation_item.length)"
+        v-show="activeIndex!=='-1'"
+        class="search-bar"
+      >
+        <el-input v-model="search_name" placeholder="搜索" @keyup.enter.native="go_to_search"></el-input>
+      </el-menu-item>
     </el-menu>
+
+    <!-- 手机的导航栏 -->
     <el-menu
       v-if="is_phone"
       :default-active="activeIndex"
@@ -36,10 +46,10 @@ export default {
   data() {
     return {
       style: [
-        "background-color:rgba(255,255,255,0.9)",
-        "background-color:rgba(255,255,255,0.6)"
-      ],
-      style_index: 1,
+        "background-color:rgba(255,255,255,0.9)", // 鼠标移入
+        "background-color:rgba(255,255,255,0.6)" // 鼠标移出
+      ], // 导航栏样式
+      style_index: 1, // 导航栏样式的数组下标
       navigation_item: [
         {
           name: "首页",
@@ -48,34 +58,53 @@ export default {
         {
           name: "分类",
           path: { name: "classification", params: { tid: 0 } }
+        },
+        {
+          name: "我的成长路线",
+          path: { name: "blog_article", params: { aid: 5 } }
         }
-        // {
-        //   name: "评论",
-        //   path: { name: 'replies' }
-        // },
-        // {
-        //   name: '图片',
-        //   path: { name: 'jpg' }
-        // }
-      ]
+      ], // 导航内容数组
+      search_name: "" // 输入的搜索关键词
     };
   },
   props: {
-    activeIndex: String
+    activeIndex: String //导航栏参数,用来隐藏和标记
   },
   methods: {
-    select(key) {
-      let real_key = Number(key);
-      this.$router.push(this.navigation_item[real_key].path);
+    // 点击菜单
+    select(index) {
+      let real_index = Number(index);
+      if (this.navigation_item.length > real_index) {
+        this.$router.push(this.navigation_item[real_index].path);
+      }
     },
+    // 鼠标离开
     leave() {
       this.style_index = 1;
     },
+    // 鼠标进来
     enter() {
       this.style_index = 0;
+    },
+    go_to_search() {
+      // 如果搜索关键词为空
+      if (this.search_name !== "") {
+        this.$router.push({
+          name: "search",
+          params: { search_name: this.search_name },
+          query: { page: 1 }
+        });
+      } else {
+        this.$message({
+          showClose: true,
+          message: "搜索内容不能为空",
+          type: "warning"
+        });
+      }
     }
   },
   computed: {
+    // 判断是否是手机
     is_phone() {
       return document.documentElement.clientWidth <= 750;
     }
@@ -88,5 +117,8 @@ export default {
   width: 100%;
   left: 0;
   top: 0;
+}
+.search-bar {
+  float: right;
 }
 </style>

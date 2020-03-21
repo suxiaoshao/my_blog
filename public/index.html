@@ -7,13 +7,35 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <title><%= htmlWebpackPlugin.options.title %></title>
+  <!-- 引入vue -->
+  <% if(htmlWebpackPlugin.options.isProd) { %>
   <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+  <%  } %>
+  <% if(!htmlWebpackPlugin.options.isProd) { %>
+  <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+  <%  } %>
+
+  <!-- 引入element -->
   <!-- 引入样式 -->
   <link rel="stylesheet" href="https://unpkg.com/element-ui@2.13.0/lib/theme-chalk/index.css">
   <!-- 引入组件库 -->
   <script src="https://unpkg.com/element-ui@2.13.0/lib/index.js"></script>
+
+  <!-- 引入vue-router -->
+  <% if(htmlWebpackPlugin.options.isProd) { %>
   <script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.min.js"></script>
+  <%  } %>
+  <% if(!htmlWebpackPlugin.options.isProd) { %>
+  <script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"></script>
+  <%  } %>
+
+  <!-- 引入axios -->
+  <% if(htmlWebpackPlugin.options.isProd) { %>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <%  } %>
+  <% if(!htmlWebpackPlugin.options.isProd) { %>
+  <script src="https://unpkg.com/axios/dist/axios.js"></script>
+  <%  } %>
 </head>
 
 <body>

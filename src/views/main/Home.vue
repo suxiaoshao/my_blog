@@ -38,7 +38,7 @@
 <script>
 // @ is an alias to /src
 import navigation from "../../components/Navigavition";
-import show from "../../components/show";
+import show from "../../components/main/show";
 export default {
   name: "Home",
   // 导入文章展示组件show和导航栏组件navigation

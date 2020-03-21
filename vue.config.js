@@ -7,9 +7,13 @@ module.exports = {
             config.set('externals', {
                 'vue': 'Vue',
                 // 'element-ui': 'ElEMENT',
-                'vue-router':'VueRouter',
-                'axios':'axios',
+                'vue-router': 'VueRouter',
+                'axios': 'axios',
                 'element-ui': 'ElementUI',
+            })
+            config.plugin('html').tap(args => {
+                args[0].isProd = true
+                return args
             })
         })
         // 开发模式
@@ -18,9 +22,13 @@ module.exports = {
             config.set('externals', {
                 'vue': 'Vue',
                 // 'element-ui': 'ElEMENT',
-                'vue-router':'VueRouter',
-                'axios':'axios',
+                'vue-router': 'VueRouter',
+                'axios': 'axios',
                 'element-ui': 'ElementUI',
+            })
+            config.plugin('html').tap(args => {
+                args[0].isProd = false
+                return args
             })
         })
     }

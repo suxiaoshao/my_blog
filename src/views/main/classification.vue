@@ -26,11 +26,12 @@
             :type="Number(item.type)"
             :time_str="item.time_str"
             :img_key="String(index)"
-            @click="go_to_url(index)"
           ></show>
           <br />
           <br />
         </div>
+        
+        <!-- 导航栏 -->
         <div class="block" style="background-color:rgba(255,255,255, 0.7)">
           <el-pagination
             :hide-on-single-page="true"
@@ -49,14 +50,14 @@
 
 <script>
 import navigation from "../../components/Navigavition";
-import show from "../../components/show";
+import show from "../../components/main/show";
 
 export default {
   name: "classification",
   data() {
     return {
       article_num: 0, //总文章数
-      limit_num: 20, // 获取文章list的总数
+      limit_num: 10, // 获取文章list的总数
       all_data: [], //文章list
       article_type: ["学习", "代码", "其他", "工具"], // 文章类型总数
       real_page: this.$route.query.page, //显示的页面数量
@@ -72,7 +73,7 @@ export default {
     handleCurrentChange(val) {
       this.$router.push({
         name: "classification",
-        params: { tid: tid },
+        params: { tid: this.type },
         query: { page: val }
       });
       this.get_base();

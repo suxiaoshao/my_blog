@@ -8,7 +8,7 @@ const main_router = [
         name: 'Home',
         component: Home,
         meta: {
-            title: '首页'
+            title: "sushao'blog"
         }
     },
     {

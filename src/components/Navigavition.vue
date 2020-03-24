@@ -9,11 +9,14 @@
       @select="select"
       :style="style[style_index]"
     >
+      <!-- 普通信息框 -->
       <el-menu-item
         v-for="(item,index) in navigation_item"
         :key="index"
         :index="String(index)"
       >{{item.name}}</el-menu-item>
+
+      <!-- 搜索框 -->
       <el-menu-item
         :index="String(navigation_item.length)"
         v-show="activeIndex!=='-1'"
@@ -32,11 +35,26 @@
       @select="select"
       :style="style[style_index]"
     >
+      <!-- 普通信息框 -->
+      <el-submenu :index="String(navigation_item.length+1)">
+        <template slot="title">
+          <i class="el-icon-menu"></i>
+        </template>
+        <el-menu-item
+          v-for="(item,index) in navigation_item"
+          :key="index"
+          :index="String(index)"
+        >{{item.name}}</el-menu-item>
+      </el-submenu>
+
+      <!-- 搜索框 -->
       <el-menu-item
-        v-for="(item,index) in navigation_item"
-        :key="index"
-        :index="String(index)"
-      >{{item.name}}</el-menu-item>
+        :index="String(navigation_item.length)"
+        v-show="activeIndex!=='-1'"
+        class="search-bar"
+      >
+        <el-input v-model="search_name" placeholder="搜索" @change="go_to_search"></el-input>
+      </el-menu-item>
     </el-menu>
   </div>
 </template>

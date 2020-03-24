@@ -19,7 +19,7 @@
     <br />
 
     <el-row v-loading="loading">
-      <el-col :xs="{span:14,offset:0}" :sm="{span:16,offset:3}" :md="{span:10,offset:7}">
+      <el-col :xs="{span:24,offset:0}" :sm="{span:16,offset:3}" :md="{span:10,offset:7}">
         <!-- 搜索结果 -->
         <div v-for="(item,index) in data_list" :key="index">
           <show

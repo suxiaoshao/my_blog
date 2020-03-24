@@ -2,6 +2,7 @@
   <div id="blog_article" v-loading="loading">
     <br />
     <br />
+
     <!-- 目录 -->
     <el-dialog title="目录" :visible.sync="dialogVisible" :fullscreen="is_phone">
       <el-menu default-active="2" class="el-menu-vertical-demo">
@@ -21,15 +22,20 @@
     </el-dialog>
     <!-- 文章内容 -->
     <el-row>
-      <el-col
-        class="main"
-        :xs="{span:24,offset:0}"
-        :sm="{span:16,offset:4}"
-        :md="{span:14,offset:5}"
-      >
+      <el-col :xs="{span:24,offset:0}" :sm="{span:16,offset:4}" :md="{span:14,offset:5}">
         <article-content :article_data="article_data"></article-content>
       </el-col>
     </el-row>
+    <br />
+    <br />
+
+    <!-- 文章评论 -->
+    <el-row>
+      <el-col :xs="{span:24,offset:0}" :sm="{span:16,offset:4}" :md="{span:14,offset:5}">
+        <article-reply :aid="Number(aid)" :reply_num="article_data.reply_num"></article-reply>
+      </el-col>
+    </el-row>
+
     <!-- 工具球 -->
     <div style="position:fixed;right:10%;bottom:10%;">
       <el-dropdown trigger="click" @command="handleCommand">
@@ -44,10 +50,12 @@
 </template>
 <script>
 import content from "../../components/article/article_show";
+import reply from "../../components/article/article_reply";
 export default {
   name: "blog_article",
   components: {
-    "article-content": content
+    "article-content": content,
+    "article-reply": reply
   },
   data() {
     return {
@@ -57,13 +65,16 @@ export default {
         time_str: "", // 时间字符串
         content: "", // 文章内容
         time_stamp: 0, // 时间戳
-        directory: [] // 目录
+        directory: [], // 目录
+        type: null, // 文章类型
+        read_num: 0, //阅读次数
+        reply_num: -1 //评论次数
       },
       dialogVisible: false, // 目录是否显示
       loading: false
     };
   },
-  mounted() {
+  created() {
     // 页面加载时，获取文章信息
     this.get_base();
   },
@@ -128,7 +139,4 @@ export default {
 };
 </script>
 <style scoped>
-/* .main {
-  position:fixed;
-} */
 </style>

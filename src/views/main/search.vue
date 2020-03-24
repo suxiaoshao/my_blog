@@ -107,9 +107,10 @@ export default {
           if (response.data.success) {
             if (response.data.article_num === 0) {
               this.loading = false;
-              this.$message({
-                showClose: true,
+              this.$notify({
+                title: "警告",
                 message: "搜索结果为空",
+                duration: 0,
                 type: "warning"
               });
             } else {
@@ -119,9 +120,10 @@ export default {
               document.documentElement.scrollTop = 0;
             }
           } else {
-            this.$message({
-              showClose: true,
-              message: "发生错误,请刷新试试",
+            this.$notify({
+              title: "错误",
+              message: "刷新试试",
+              duration: 0,
               type: "error"
             });
             this.loading = false;
@@ -144,9 +146,10 @@ export default {
           if (response.data.success) {
             this.data_list = response.data.data;
           } else {
-            this.$message({
-              showClose: true,
-              message: "发生错误,自动转到第一页",
+            this.$notify({
+              title: "错误",
+              message: "自动转到第一页",
+              duration: 0,
               type: "error"
             });
             this.$router.push({
@@ -172,9 +175,10 @@ export default {
         });
         this.get_main();
       } else {
-        this.$message({
-          showClose: true,
+        this.$notify({
+          title: "警告",
           message: "搜索内容不能为空",
+          duration: 0,
           type: "warning"
         });
       }

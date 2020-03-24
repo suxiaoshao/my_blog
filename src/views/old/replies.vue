@@ -67,8 +67,10 @@ export default {
         })
         .then(response => {
           if (response.data.success === true) {
-            this.$message({
+            this.$notify({
+              title: "成功",
               message: "成功删除评论",
+              duration: 0,
               type: "success"
             });
             this.get_main_json();
@@ -88,8 +90,10 @@ export default {
         })
         .then(response => {
           if (response.data.success === true) {
-            this.$message({
+            this.$notify({
+              title: "成功",
               message: "成功保留评论",
+              duration: 0,
               type: "success"
             });
             this.get_main_json();

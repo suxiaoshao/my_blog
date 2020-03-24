@@ -26,7 +26,7 @@ router.beforeEach((to, from, next) => {
   })) {
     is_login(next)
   }
-  else if (to.name === 'blog_writting' || to.name === 'blog_exit') {
+  else if (to.name === 'blog_writting' || to.name === 'blog_edit') {
     is_login(next)
   }
   else {

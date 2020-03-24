@@ -79,8 +79,10 @@ export default {
         })
         .then(response => {
           if (response.data.success === true) {
-            this.$message({
+            this.$notify({
+              title: "成功",
               message: "成功删除壁纸",
+              duration: 0,
               type: "success"
             });
             this.get_main_json();
@@ -103,8 +105,10 @@ export default {
         .then(response => {
           if (response.data.success === true) {
             this.loading = false;
-            this.$message({
+            this.$notify({
+              title: "成功",
               message: "成功保留壁纸",
+              duration: 0,
               type: "success"
             });
             this.get_main_json();

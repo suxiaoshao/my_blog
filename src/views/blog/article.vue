@@ -32,7 +32,7 @@
     <!-- 文章评论 -->
     <el-row>
       <el-col :xs="{span:24,offset:0}" :sm="{span:16,offset:4}" :md="{span:14,offset:5}">
-        <article-reply :aid="Number(aid)" :reply_num="article_data.reply_num"></article-reply>
+        <article-reply :aid="Number(aid)" :reply_num="Number(article_data.reply_num)"></article-reply>
       </el-col>
     </el-row>
 
@@ -94,7 +94,12 @@ export default {
             window.document.title = response.data.article_data.title;
           } else {
             this.loading = false;
-            this.$alert("文章连接错误", "警告");
+            this.$notify({
+              title: "错误",
+              message: "没有此文章",
+              duration: 0,
+              type: "error"
+            });
             this.$router.push({ name: "Home" });
           }
         })

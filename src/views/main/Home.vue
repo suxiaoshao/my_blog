@@ -88,9 +88,10 @@ export default {
             if (this.article_num === 0) {
               this.loading = false;
               // 提示信息
-              this.$message({
-                showClose: true,
+              this.$notify({
+                title: "警告",
                 message: "还没有篇文章",
+                duration: 0,
                 type: "warning"
               });
               // 删除all_data
@@ -103,9 +104,10 @@ export default {
             }
           } else {
             this.loading = false;
-            this.$message({
-              showClose: true,
-              message: "发生错误,请刷新试试",
+            this.$notify({
+              title: "错误",
+              message: "刷新试试",
+              duration: 0,
               type: "error"
             });
           }
@@ -130,9 +132,10 @@ export default {
           } else {
             this.loading = false;
             // 如果数据错误,退回第一页
-            this.$message({
-              showClose: true,
-              message: "发生错误,自动转到第一页",
+            this.$notify({
+              title: "错误",
+              message: "自动转到第一页",
+              duration: 0,
               type: "error"
             });
             this.$router.push({ name: "Home" });

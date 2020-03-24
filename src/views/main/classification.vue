@@ -30,7 +30,7 @@
           <br />
           <br />
         </div>
-        
+
         <!-- 导航栏 -->
         <div class="block" style="background-color:rgba(255,255,255, 0.7)">
           <el-pagination
@@ -94,9 +94,10 @@ export default {
           if (response.data.success) {
             this.article_num = response.data.article_num;
             if (this.article_num === 0) {
-              this.$message({
-                showClose: true,
+              this.$notify({
+                title: "警告",
                 message: "还没有篇文章",
+                duration: 0,
                 type: "warning"
               });
               this.all_data = [];
@@ -107,9 +108,10 @@ export default {
               document.documentElement.scrollTop = 0;
             }
           } else {
-            this.$message({
-              showClose: true,
-              message: "发生错误,请刷新试试",
+            this.$notify({
+              title: "错误",
+              message: "请刷新试试",
+              duration: 0,
               type: "error"
             });
             this.loading = false;
@@ -134,9 +136,10 @@ export default {
             this.all_data = response.data.data;
           } else {
             this.loading = false;
-            this.$message({
-              showClose: true,
-              message: "发生错误,自动转到第一页",
+            this.$notify({
+              title: "错误",
+              message: "自动转到第一页",
+              duration: 0,
               type: "error"
             });
             this.$router.push({ name: "classification", params: { tid: tid } });

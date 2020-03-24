@@ -1,5 +1,5 @@
 <template>
-  <div id="blog_exit" v-loading="loading">
+  <div id="blog_edit" v-loading="loading">
     <br />
     <!-- 表单数据 -->
     <el-row>
@@ -36,7 +36,7 @@
 <script>
 import written from "../../components/article/article_write";
 export default {
-  name: "blog_exit",
+  name: "blog_edit",
   components: {
     "article-written": written
   },
@@ -102,9 +102,10 @@ export default {
           if (response.data.success) {
             // 上传成功，跳转至文章页面
             this.loading = false;
-            this.$message({
-              showClose: true,
+            this.$notify({
+              title: "成功",
               message: "成功上传",
+              duration: 0,
               type: "success"
             });
             this.$router.push({
@@ -113,9 +114,10 @@ export default {
             });
           } else {
             this.loading = false;
-            this.$message({
-              showClose: true,
+            this.$notify({
+              title: "错误",
               message: "上传失败",
+              duration: 0,
               type: "error"
             });
           }

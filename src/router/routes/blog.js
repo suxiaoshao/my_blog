@@ -1,7 +1,7 @@
 import article from '../../views/blog/article'
 import blog from '../../views/blog/main'
 import writting from '../../views/blog/writting'
-import exit from '../../views/blog/exit'
+import edit from '../../views/blog/edit'
 const blog_router = {
     path: '/blog',
     name: 'blog',
@@ -27,9 +27,9 @@ const blog_router = {
             }
         },
         {
-            path: '/blog/exit/:aid',
-            name: 'blog_exit',
-            component: exit,
+            path: '/blog/edit/:aid',
+            name: 'blog_edit',
+            component: edit,
             meta: {
                 title: '博客修改'
             }

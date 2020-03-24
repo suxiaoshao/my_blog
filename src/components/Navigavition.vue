@@ -113,9 +113,10 @@ export default {
           query: { page: 1 }
         });
       } else {
-        this.$message({
-          showClose: true,
+        this.$notify({
+          title: "警告",
           message: "搜索内容不能为空",
+          duration: 0,
           type: "warning"
         });
       }

@@ -97,9 +97,10 @@ export default {
             this.main_av = response.data.data;
             this.get_recommended(response.data.data.aid);
           } else {
-            this.$message({
-              showClose: true,
-              message: "发生错诶,请刷新试试",
+            this.$notify({
+              title: "错误",
+              message: "刷新试试",
+              duration: 0,
               type: "error"
             });
           }
@@ -119,9 +120,10 @@ export default {
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
           } else {
-            this.$message({
-              showClose: true,
-              message: "发生错误,请刷新试试",
+            this.$notify({
+              title: "错误",
+              message: "刷新试试",
+              duration: 0,
               type: "error"
             });
           }
@@ -139,15 +141,17 @@ export default {
         .then(response => {
           if (response.data.ok) {
             this.recommended[index].save = true;
-            this.$message({
-              showClose: true,
+            this.$notify({
+              title: "成功",
               message: "收藏成功",
+              duration: 0,
               type: "success"
             });
           } else {
-            this.$message({
-              showClose: true,
-              message: "发生错误,请刷新试试",
+            this.$notify({
+              title: "错误",
+              message: "刷新试试",
+              duration: 0,
               type: "error"
             });
           }
@@ -162,15 +166,17 @@ export default {
         .then(response => {
           if (response.data.ok) {
             this.get_base();
-            this.$message({
-              showClose: true,
+            this.$notify({
+              title: "成功",
               message: "更新成功",
+              duration: 0,
               type: "success"
             });
           } else {
-            this.$message({
-              showClose: true,
-              message: "发生错误,请刷新试试",
+            this.$notify({
+              title: "错误",
+              message: "刷新试试",
+              duration: 0,
               type: "error"
             });
           }

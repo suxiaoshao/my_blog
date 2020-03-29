@@ -1,4 +1,6 @@
 module.exports = {
+    assetsDir: 'static',
+    indexPath: 'static/index.html',
     // 选项...
     chainWebpack: config => {
         // 发布模式

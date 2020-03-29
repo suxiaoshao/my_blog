@@ -82,6 +82,14 @@ export default {
       }
     }
   },
+  watch: {
+    search_name() {
+      this.get_main();
+    },
+    offset() {
+      this.get_main();
+    }
+  },
   mounted() {
     this.get_main();
   },
@@ -92,14 +100,13 @@ export default {
         params: { search_name: this.search_name },
         query: { page: val }
       });
-      this.get_main();
     },
     // 获取搜索结果
     get_main() {
       this.loading = true;
       this.data_list = [];
       this.axios
-        .post("http://www.sushao.top/api/blog/search/base", {
+        .post("https://www.sushao.top/api/blog/search/base", {
           search_name: this.search_name
         })
         .then(response => {
@@ -136,7 +143,7 @@ export default {
     get_list() {
       this.loading = true;
       this.axios
-        .post("http://www.sushao.top/api/blog/search/search_list", {
+        .post("https://www.sushao.top/api/blog/search/search_list", {
           search_name: this.search_name,
           offset: this.offset,
           limit_num: this.limit_num
@@ -173,7 +180,6 @@ export default {
           params: { search_name: this.inputs },
           query: { page: 1 }
         });
-        this.get_main();
       } else {
         this.$notify({
           title: "警告",

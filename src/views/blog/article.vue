@@ -83,7 +83,7 @@ export default {
     get_base() {
       this.loading = true;
       this.axios
-        .post("http://www.sushao.top/api/blog/article/base", {
+        .post("https://www.sushao.top/api/blog/article/base", {
           aid: this.aid
         })
         .then(response => {
@@ -125,6 +125,12 @@ export default {
       window.location.hash = "#" + hash;
       window.document.title = this.article_data.title;
       this.dialogVisible = false;
+    }
+  },
+  watch: {
+    // 监听aid是否发生变化如果变化,执行get_base()
+    aid() {
+      this.get_base();
     }
   },
   computed: {

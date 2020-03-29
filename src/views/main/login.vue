@@ -50,7 +50,7 @@ export default {
       let real_user = string_to_md5_3(this.user);
       let real_password = string_to_md5_3(this.password);
       this.axios
-        .post("http://www.sushao.top/api/blog/home/login", {
+        .post("https://www.sushao.top/api/blog/home/login", {
           user: real_user,
           password: real_password
         })

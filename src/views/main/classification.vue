@@ -76,18 +76,16 @@ export default {
         params: { tid: this.type },
         query: { page: val }
       });
-      this.get_base();
     },
     // 根据类型选择器跳转到相应url
     go_to_url(tid) {
       this.$router.push({ name: "classification", params: { tid: tid } });
-      this.get_base();
     },
     // 获取文章总数
     get_base() {
       this.loading = true;
       this.axios
-        .post("http://www.sushao.top/api/blog/home/base", {
+        .post("https://www.sushao.top/api/blog/home/base", {
           find_condition: { type: this.type }
         })
         .then(response => {
@@ -125,7 +123,7 @@ export default {
     get_data() {
       this.loading = true;
       this.axios
-        .post("http://www.sushao.top/api/blog/home/article_list", {
+        .post("https://www.sushao.top/api/blog/home/article_list", {
           find_condition: { type: this.type }, //文章的限制
           limit_num: this.limit_num, //获取的总数
           offset: this.offset //偏移量
@@ -143,7 +141,6 @@ export default {
               type: "error"
             });
             this.$router.push({ name: "classification", params: { tid: tid } });
-            this.get_base();
           }
         })
         .catch(error => {
@@ -167,6 +164,14 @@ export default {
       } else {
         return Number(this.$route.query.page);
       }
+    }
+  },
+  watch: {
+    type() {
+      this.get_base();
+    },
+    page() {
+      this.get_base();
     }
   },
   mounted() {

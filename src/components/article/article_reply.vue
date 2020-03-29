@@ -205,7 +205,7 @@ export default {
     get_reply() {
       this.get_loading = true;
       this.axios
-        .post("http://www.sushao.top/api/blog/reply/base", {
+        .post("https://www.sushao.top/api/blog/reply/base", {
           aid: this.aid,
           offset: this.offset,
           limit_num: this.limit_num
@@ -237,7 +237,7 @@ export default {
         if (valid) {
           this.post_loading = true;
           this.axios
-            .post("http://www.sushao.top/api/blog/reply/post", {
+            .post("https://www.sushao.top/api/blog/reply/post", {
               aid: this.aid,
               content: this.post_data.content,
               name: this.post_data.name,

@@ -69,16 +69,20 @@ export default {
       }
     }
   },
+  watch: {
+    page() {
+      this.get_base();
+    }
+  },
   methods: {
     handleCurrentChange(val) {
       this.$router.push({ name: "Home", query: { page: val } });
-      this.get_base();
     },
     // 获取基本信息
     get_base() {
       this.loading = true;
       this.axios
-        .post("http://www.sushao.top/api/blog/home/base", {
+        .post("https://www.sushao.top/api/blog/home/base", {
           find_condition: {}
         })
         .then(response => {
@@ -120,7 +124,7 @@ export default {
     get_data() {
       this.loading = true;
       this.axios
-        .post("http://www.sushao.top/api/blog/home/article_list", {
+        .post("https://www.sushao.top/api/blog/home/article_list", {
           find_condition: {}, //文章的限制
           limit_num: this.limit_num, //获取的总数
           offset: this.offset //偏移量
@@ -139,7 +143,6 @@ export default {
               type: "error"
             });
             this.$router.push({ name: "Home" });
-            this.get_base();
           }
         })
         .catch(error => {

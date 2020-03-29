@@ -45,7 +45,7 @@ export default {
     real_url() {
       let url_list = this.url.split("/");
       return (
-        "http://www.sushao.top/api/old/wallpaper/img/" +
+        "https://www.sushao.top/api/old/wallpaper/img/" +
         url_list[url_list.length - 2] +
         "===" +
         url_list[url_list.length - 1]
@@ -56,7 +56,7 @@ export default {
     get_main_json() {
       this.loading = true;
       this.axios
-        .get("http://www.sushao.top/api/old/wallpaper/base")
+        .get("https://www.sushao.top/api/old/wallpaper/base")
         .then(response => {
           if (response.data.success === true) {
             this.url = response.data.data.url;
@@ -73,7 +73,7 @@ export default {
     delete_wallpaper() {
       this.loading = true;
       this.axios
-        .post("http://www.sushao.top/api/old/wallpaper/base", {
+        .post("https://www.sushao.top/api/old/wallpaper/base", {
           ok: false,
           url: this.url
         })
@@ -98,7 +98,7 @@ export default {
     retain_wallpaper() {
       this.loading = true;
       this.axios
-        .post("http://www.sushao.top/api/old/wallpaper/base", {
+        .post("https://www.sushao.top/api/old/wallpaper/base", {
           ok: true,
           url: this.url
         })

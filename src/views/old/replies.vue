@@ -46,7 +46,7 @@ export default {
   methods: {
     get_main_json() {
       this.axios
-        .get("http://www.sushao.top/api/old/replies/base")
+        .get("https://www.sushao.top/api/old/replies/base")
         .then(response => {
           if (response.data.success === true) {
             this.content = response.data.data.content;
@@ -61,7 +61,7 @@ export default {
     },
     delete_reply() {
       this.axios
-        .post("http://www.sushao.top/api/old/replies/base", {
+        .post("https://www.sushao.top/api/old/replies/base", {
           ok: false,
           data: { content: this.content, url: this.url }
         })
@@ -84,7 +84,7 @@ export default {
     },
     retain_reply() {
       this.axios
-        .post("http://www.sushao.top/api/old/replies/base", {
+        .post("https://www.sushao.top/api/old/replies/base", {
           ok: true,
           data: { content: this.content, url: this.url }
         })

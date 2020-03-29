@@ -67,7 +67,7 @@ export default {
     //获取文章内容
     get_content() {
       this.axios
-        .post("http://www.sushao.top/api/blog/article/base", {
+        .post("https://www.sushao.top/api/blog/article/base", {
           aid: this.$route.params.aid
         })
         .then(response => {
@@ -92,7 +92,7 @@ export default {
     post_content() {
       this.loading = true;
       this.axios
-        .post("http://www.sushao.top/api/blog/article/upload_content", {
+        .post("https://www.sushao.top/api/blog/article/upload_content", {
           content: this.markdown,
           title: this.title,
           type: this.type,

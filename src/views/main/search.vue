@@ -1,57 +1,61 @@
 <template>
-  <div id="search">
-    <br />
-    <br />
-    <br />
-    <br />
+  <div id="search" class="router">
+    <el-container>
+      <el-header>
+        <my-navigation active-index="0"></my-navigation>
+      </el-header>
+      <el-main>
 
-    <!-- 搜索栏 -->
-    <el-row :gutter="10">
-      <el-col :xs="{span:19,offset:0}" :sm="{span:10,offset:6}" :md="{span:6,offset:8}">
-        <el-input placeholder="回车搜索" v-model="inputs" @keyup.enter.native="real_search"></el-input>
-      </el-col>
-      <el-col :xs="{span:5}" :sm="{span:2}" :md="{span:2}">
-        <el-button @click="real_search" style="width:100%" type="primary">搜索</el-button>
-      </el-col>
-    </el-row>
+        <!-- 搜索栏 -->
+        <el-row :gutter="10" id="title">
+          <el-col :xs="{span:19,offset:0}" :sm="{span:10,offset:6}" :md="{span:6,offset:8}">
+            <el-input placeholder="回车搜索" v-model="inputs" @keyup.enter.native="real_search"></el-input>
+          </el-col>
+          <el-col :xs="{span:5}" :sm="{span:2}" :md="{span:2}">
+            <el-button @click="real_search" style="width:100%" type="primary">搜索</el-button>
+          </el-col>
+        </el-row>
 
-    <br />
-    <br />
+        <br />
+        <br />
 
-    <el-row v-loading="loading">
-      <el-col :xs="{span:24,offset:0}" :sm="{span:16,offset:3}" :md="{span:10,offset:7}">
-        <!-- 搜索结果 -->
-        <div v-for="(item,index) in data_list" :key="index">
-          <show
-            :title="item.title"
-            :article_aid="String(item.aid)"
-            :type="Number(item.type)"
-            :time_str="item.time_str"
-            :img_key="String(index)"
-          ></show>
-          <br />
-          <br />
-        </div>
+        <el-row v-loading="loading">
+          <el-col :xs="{span:24,offset:0}" :sm="{span:16,offset:3}" :md="{span:10,offset:7}">
+            <!-- 搜索结果 -->
+            <div v-for="(item,index) in data_list" :key="index">
+              <show
+                      :title="item.title"
+                      :article_aid="String(item.aid)"
+                      :type="Number(item.type)"
+                      :time_str="item.time_str"
+                      :img_key="String(index)"
+              ></show>
+              <br />
+              <br />
+            </div>
 
-        <!-- 分页栏 -->
-        <div class="block" style="background-color:rgba(255,255,255, 0.7)">
-          <el-pagination
-            :hide-on-single-page="true"
-            @current-change="handleCurrentChange"
-            :current-page="real_page"
-            :page-size="limit_num"
-            layout="prev, pager, next,jumper"
-            :total="article_num"
-          ></el-pagination>
-        </div>
-      </el-col>
-    </el-row>
-    <navigation :activeIndex="'-1'"></navigation>
+            <!-- 分页栏 -->
+            <div class="block" style="background-color:rgba(255,255,255, 0.7)">
+              <el-pagination
+                      :hide-on-single-page="true"
+                      @current-change="handleCurrentChange"
+                      :current-page="real_page"
+                      :page-size="limit_num"
+                      layout="prev, pager, next,jumper"
+                      :total="article_num"
+              ></el-pagination>
+            </div>
+          </el-col>
+        </el-row>
+        <record-show></record-show>
+      </el-main>
+    </el-container>
   </div>
 </template>
 <script>
 import show from "../../components/main/show";
 import navigation from "../../components/Navigavition";
+import record_show from "../../components/record_show";
 export default {
   name: "search",
   data() {
@@ -65,8 +69,9 @@ export default {
     };
   },
   components: {
-    navigation: navigation,
-    show: show
+    "my-navigation": navigation,
+    "show": show,
+    "record-show":record_show
   },
   computed: {
     // 搜索关键词
@@ -123,8 +128,7 @@ export default {
             } else {
               this.article_num = response.data.article_num;
               this.get_list();
-              document.body.scrollTop = 0;
-              document.documentElement.scrollTop = 0;
+              document.getElementById("title").scrollIntoView();
             }
           } else {
             this.$notify({
@@ -137,6 +141,7 @@ export default {
           }
         })
         .catch(error => {
+          this.loading = false;
           console.log(error);
         });
     },
@@ -168,6 +173,7 @@ export default {
           }
         })
         .catch(error => {
+          this.loading = false;
           console.log(error);
         });
     },

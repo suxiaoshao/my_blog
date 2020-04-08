@@ -117,6 +117,7 @@
           :page-size="limit_num"
           layout="prev, pager, next,jumper"
           :total="real_num"
+          :pager-count="5"
         ></el-pagination>
       </div>
     </el-card>
@@ -227,6 +228,7 @@ export default {
           }
         })
         .catch(error => {
+          this.get_loading = false;
           console.log(error);
         });
     },
@@ -267,6 +269,7 @@ export default {
               }
             })
             .catch(error => {
+              this.post_loading = false;
               console.log(error);
             });
         }

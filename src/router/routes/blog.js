@@ -1,6 +1,6 @@
 import article from '../../views/blog/article'
 import blog from '../../views/blog/main'
-import writting from '../../views/blog/writting'
+import writing from '../../views/blog/writing'
 import edit from '../../views/blog/edit'
 const blog_router = {
     path: '/blog',
@@ -19,9 +19,9 @@ const blog_router = {
             }
         },
         {
-            path: '/blog/writting',
-            name: 'blog_writting',
-            component: writting,
+            path: '/blog/writing',
+            name: 'blog_writing',
+            component: writing,
             meta: {
                 title: '博客写作'
             }

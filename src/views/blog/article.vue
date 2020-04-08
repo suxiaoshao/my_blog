@@ -20,10 +20,11 @@
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
+
     <!-- 文章内容 -->
     <el-row>
       <el-col :xs="{span:24,offset:0}" :sm="{span:16,offset:4}" :md="{span:14,offset:5}">
-        <article-content :article_data="article_data"></article-content>
+        <article-content :article_data="article_data" id="title"></article-content>
       </el-col>
     </el-row>
     <br />
@@ -104,14 +105,14 @@ export default {
           }
         })
         .catch(error => {
+          this.loading = false;
           console.log(error);
         });
     },
     // 工具球点击
     handleCommand(item) {
       if (item === "a") {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
+        document.getElementById("title").scrollIntoView();
       } else if (item === "b") {
         this.dialogVisible = true;
       }

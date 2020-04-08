@@ -19,18 +19,6 @@
       clickMode="push"
     ></vue-particles>
     <router-view></router-view>
-    <el-row>
-      <div class="footer" style="background-color:rgba(255,255,255, 0.7)">
-        <p id="footer-info">
-          ©
-          <span>2020-2020</span>
-          <span>
-            <a class="record" href="http://beian.miit.gov.cn" target="_blank">• 闽ICP备20003624号</a>
-          </span>
-        </p>
-      </div>
-    </el-row>
-    <p>滴滴滴多</p>
   </div>
 </template>
 
@@ -48,8 +36,8 @@ export default {
   overflow: hidden;
   width: 100%;
   height: 100%;
-  top: 0%;
-  left: 0%;
+  top: 0;
+  left: 0;
 }
 </style>
 <style scoped>

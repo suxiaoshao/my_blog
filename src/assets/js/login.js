@@ -12,7 +12,7 @@ function is_login(next) {
             }
         })
         .catch(error => {
-            console.log(error)
+            console.log(error);
             next({ name: 'Home' })
         })
 }

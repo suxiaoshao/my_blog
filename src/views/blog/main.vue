@@ -1,18 +1,24 @@
 <template>
-  <div id="blog_main">
-    <br />
-    <br />
-    <br />
-    <router-view></router-view>
-    <navigation></navigation>
+  <div id="blog_main" class="router">
+    <el-container>
+      <el-header>
+        <my-navigation></my-navigation>
+      </el-header>
+      <el-main>
+        <router-view></router-view>
+        <record-show></record-show>
+      </el-main>
+    </el-container>
   </div>
 </template>
 <script>
 import navigation from "../../components/Navigavition";
+import record_show from "../../components/record_show";
 export default {
   name: "blog_main",
   components: {
-    navigation: navigation
+    "my-navigation": navigation,
+    "record-show":record_show
   }
 };
 </script>

@@ -30,7 +30,7 @@
           <br />
 
           <!-- 图片 -->
-          <el-image :src="'https://www.sushao.top/api/blog/home/img/'+img_key" lazy>
+          <el-image :src="'https://www.sushao.top/api/blog/home/img/'+img_key">
             <div slot="placeholder" class="image-slot">
               <img src="../../assets/image/loading.png" alt="loading" class="image" />
             </div>

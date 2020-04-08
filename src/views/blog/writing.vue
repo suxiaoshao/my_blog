@@ -1,5 +1,5 @@
 <template>
-  <div id="blog_writting" v-loading="loading">
+  <div id="blog_writing" v-loading="loading">
     <br />
     <!-- 表单数据 -->
     <el-row>
@@ -36,7 +36,7 @@
 <script>
 import written from "../../components/article/article_write";
 export default {
-  name: "blog_writting",
+  name: "blog_writing",
   components: {
     "article-written": written
   },

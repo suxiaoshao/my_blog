@@ -1,37 +1,40 @@
 <template>
-  <div class="home">
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <el-row v-loading="loading">
-      <el-col :xs="{span:24,offset:0}" :sm="{span:14,offset:5}" :md="{span:12,offset:6}">
-        <!-- 文章展示 -->
-        <div v-for="(item,index) in all_data" :key="index">
-          <show
-            :title="item.title"
-            :article_aid="String(item.aid)"
-            :type="Number(item.type)"
-            :time_str="item.time_str"
-            :img_key="String(index)"
-          ></show>
-          <br />
-          <br />
-        </div>
-        <div class="block" style="background-color:rgba(255,255,255, 0.7)">
-          <el-pagination
-            :hide-on-single-page="true"
-            @current-change="handleCurrentChange"
-            :current-page="real_page"
-            :page-size="limit_num"
-            layout="prev, pager, next,jumper"
-            :total="article_num"
-          ></el-pagination>
-        </div>
-      </el-col>
-    </el-row>
-    <navigation :activeIndex="'0'"></navigation>
+  <div class="home router">
+    <el-container>
+      <el-header>
+        <my-navigation active-index="0"></my-navigation>
+      </el-header>
+      <el-main>
+        <el-row v-loading="loading">
+          <el-col :xs="{span:24,offset:0}" :sm="{span:14,offset:5}" :md="{span:12,offset:6}" id="title">
+            <!-- 文章展示 -->
+            <div v-for="(item,index) in all_data" :key="index">
+              <show
+                      :title="item.title"
+                      :article_aid="String(item.aid)"
+                      :type="Number(item.type)"
+                      :time_str="item.time_str"
+                      :img_key="String(index)"
+              ></show>
+              <br />
+              <br />
+            </div>
+            <div class="block" style="background-color:rgba(255,255,255, 0.7)">
+              <el-pagination
+                      :hide-on-single-page="true"
+                      @current-change="handleCurrentChange"
+                      :current-page="real_page"
+                      :page-size="limit_num"
+                      layout="prev, pager, next,jumper"
+                      :total="article_num"
+                      :pager-count="5"
+              ></el-pagination>
+            </div>
+          </el-col>
+        </el-row>
+        <record-show></record-show>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
@@ -39,12 +42,14 @@
 // @ is an alias to /src
 import navigation from "../../components/Navigavition";
 import show from "../../components/main/show";
+import record_show from "../../components/record_show";
 export default {
   name: "Home",
   // 导入文章展示组件show和导航栏组件navigation
   components: {
-    navigation: navigation,
-    show: show
+    "my-navigation": navigation,
+    "show": show,
+    "record-show":record_show
   },
   data() {
     return {
@@ -103,8 +108,7 @@ export default {
             } else {
               // 有文章的话访问
               this.get_data();
-              document.body.scrollTop = 0;
-              document.documentElement.scrollTop = 0;
+              document.getElementById("title").scrollIntoView();
             }
           } else {
             this.loading = false;
@@ -117,6 +121,7 @@ export default {
           }
         })
         .catch(error => {
+          this.loading = false;
           console.log(error);
         });
     },

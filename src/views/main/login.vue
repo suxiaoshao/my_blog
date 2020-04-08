@@ -33,10 +33,12 @@
         </el-card>
       </el-col>
     </el-row>
+    <record-show></record-show>
   </div>
 </template>
 <script>
 import { string_to_md5_3 } from "../../assets/js/encryption";
+import record_show from "../../components/record_show";
 export default {
   name: "login",
   data() {
@@ -44,6 +46,9 @@ export default {
       user: "",
       password: ""
     };
+  },
+  components:{
+    "record-show":record_show
   },
   methods: {
     onSubmit() {

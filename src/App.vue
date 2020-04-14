@@ -1,77 +1,26 @@
 <template>
-  <div id="app">
-    <vue-particles
-      class="vue-particles"
-      color="#dedede"
-      :particleOpacity="0.7"
-      :particlesNumber="80"
-      shapeType="circle"
-      :particleSize="4"
-      linesColor="#dedede"
-      :linesWidth="1"
-      :lineLinked="true"
-      :lineOpacity="0.4"
-      :linesDistance="150"
-      :moveSpeed="3"
-      :hoverEffect="true"
-      hoverMode="grab"
-      :clickEffect="true"
-      clickMode="push"
-    ></vue-particles>
-    <router-view></router-view>
-  </div>
+    <div id="app">
+        <vue-particles class="vue-particles" color="#dedede" :particleOpacity="0.7" :particlesNumber="80"
+                       shapeType="circle" :particleSize="4" linesColor="#dedede" :linesWidth="1" :lineLinked="true"
+                       :lineOpacity="0.4" :linesDistance="150" :moveSpeed="3" :hoverEffect="true" hoverMode="grab"
+                       :clickEffect="true" clickMode="push"></vue-particles>
+        <router-view></router-view>
+    </div>
 </template>
 
 <script>
-export default {
-  name: "app"
-};
+    export default {
+        name: "app"
+    };
 </script>
 
 <style>
-.vue-particles {
-  position: fixed;
-  background-image: url("https://www.sushao.top/api/blog/home/img/-1");
-  background-size: cover;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-}
-</style>
-<style scoped>
-#footer-info {
-  color: #444;
-  font-family: BlinkMacSystemFont, "Microsoft YaHei", "Segoe UI", Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  text-align: center;
-  font-size: 11px;
-  margin: 5px 0;
-  line-height: 16px;
-  padding: 0;
-  word-break: break-word;
-}
-.footer {
-  position: absolute;
-  left: 50%;
-  top: 10px;
-  transform: translate(-50%, 0);
-  width: fit-content;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-}
-.record {
-  text-align: center;
-  font-size: 11px;
-  line-height: 16px;
-  word-break: break-word;
-  background-color: transparent;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  transition: all 0.24s ease;
-  text-decoration: none;
-  color: rgba(0, 0, 0, 0.7);
-  font-family: Consolas, Menlo, Monaco, "lucida console", "Liberation Mono",
-    "Courier New", "andale mono", monospaceX, monospace, sans-serif;
-}
+    .vue-particles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index:-1;
+    }
 </style>

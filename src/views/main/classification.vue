@@ -9,18 +9,17 @@
                 <el-row v-loading="loading">
                     <el-col :xs="{span:24,offset:0}" :sm="{span:14,offset:5}" :md="{span:12,offset:6}">
                         <!-- 文章类型选择器 -->
+
                         <div id="title">
-                            <el-button
-                                    v-for="(item,index) in article_type"
-                                    :key="item"
-                                    :href="'/classification?type='+String(index)"
-                                    :disabled="index===Number(type)"
-                                    type="primary"
-                                    @click="go_to_url(index)"
-                            >{{item}}
-                            </el-button>
+                            <el-row :gutter="40">
+                                <el-col span="6" v-for="(item,index) in article_type" :key="item">
+                                    <el-button :href="'/classification?type='+String(index)" style="width: 100%"
+                                               :disabled="index===Number(type)" type="primary" @click="go_to_url(index)"
+                                    >{{item}}
+                                    </el-button>
+                                </el-col>
+                            </el-row>
                         </div>
-                        <br/>
                         <br/>
 
                         <!-- 文章的展示 -->

@@ -1,6 +1,7 @@
 // import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import "./app.scss"
 // import './plugins/element.js'
 // import axios from 'axios'
 import VueParticles from 'vue-particles'

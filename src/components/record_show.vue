@@ -1,5 +1,5 @@
 <template>
-    <div id="record_show">
+    <div class="record_show">
         <el-row>
             <div class="footer" style="background-color:rgba(255,255,255, 0.7)">
                 <p id="footer-info">
@@ -20,7 +20,7 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     #footer-info {
         color: #444;
         font-family: BlinkMacSystemFont, "Microsoft YaHei", "Segoe UI", Helvetica,

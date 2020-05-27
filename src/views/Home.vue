@@ -29,13 +29,22 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
     // @ is an alias to /src
-    import navigation from "../components/Navigavition";
-    import show from "../components/show";
-    import record_show from "../components/record_show";
+    import navigation from "../components/Navigavition.vue";
+    import show from "../components/show.vue";
+    import record_show from "../components/record_show.vue";
+    import Vue from "vue"
+    import {ArticleListData} from "@/assets/interface";
 
-    export default {
+    interface Data{
+        article_num:number
+        limit_num:number
+        all_data:ArticleListData[]
+        real_page:number
+        loading:boolean
+    }
+    export default Vue.extend({
         name: "Home",
         // 导入文章展示组件show和导航栏组件navigation
         components: {
@@ -43,22 +52,22 @@
             "show": show,
             "record-show": record_show
         },
-        data() {
+        data():Data {
             return {
                 article_num: 0, // 文章总数
                 limit_num: 10, // 获取文章list的总数
                 all_data: [], //文章list
-                real_page: this.$route.query.page, //显示的页面数量
+                real_page: Number(this.$route.query.page), //显示的页面数量
                 loading: false //页面是否加载
             };
         },
         computed: {
             // 偏移量
-            offset() {
+            offset():number {
                 return (this.page - 1) * this.limit_num;
             },
             // 页面页数
-            page() {
+            page():number {
                 if (this.$route.query.page === undefined) {
                     return 1;
                 } else {
@@ -72,8 +81,8 @@
             }
         },
         methods: {
-            handleCurrentChange(val) {
-                this.$router.push({name: "Home", query: {page: val}});
+            handleCurrentChange(val:number) {
+                this.$router.push({name: "Home", query: {page: String(val)}});
             },
             // 获取基本信息
             get_base() {
@@ -100,7 +109,10 @@
                             } else {
                                 // 有文章的话访问
                                 this.get_data();
-                                document.getElementById("title").scrollIntoView();
+                                const title=document.getElementById("title")
+                                if(title!==null){
+                                    title.scrollIntoView()
+                                }
                             }
                         } else {
                             this.loading = false;
@@ -150,7 +162,7 @@
         mounted() {
             this.get_base();
         }
-    };
+    });
 </script>
 <style scoped lang="scss">
 </style>

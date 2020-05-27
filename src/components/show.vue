@@ -36,15 +36,17 @@
         </el-row>
     </div>
 </template>
-<script>
-    export default {
+<script lang="ts">
+    import Vue from "vue"
+
+    export default Vue.extend({
         name: "show",
         props: {
-            title: String, //文章标题
-            type: Number, // 文章类型
-            time_str: String, // 最后编辑时间
-            article_aid: String, //文章标号
-            img_key: String //图片标号
+            title: String as ()=>string, //文章标题
+            type: Number as ()=>number, // 文章类型
+            time_str: String as ()=>string, // 最后编辑时间
+            article_aid: Number as ()=>number, //文章标号
+            img_key: Number as ()=>number //图片标号
         },
         data() {
             return {
@@ -52,14 +54,14 @@
             };
         },
         methods: {
-            go_to_article(aid) {
-                this.$router.push({name: "blog_article", params: {aid: aid}})
+            go_to_article(aid: number) {
+                this.$router.push({name: "blog_article", params: {aid: String(aid)}})
             },
-            go_to_classification(type) {
-                this.$router.push({name: "classification", params: {tid: type}})
+            go_to_classification(type: number) {
+                this.$router.push({name: "classification", params: {tid: String(type)}})
             }
         }
-    };
+    });
 </script>
 <style scoped lang="scss">
     .image {

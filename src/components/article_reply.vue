@@ -8,7 +8,7 @@
             <!-- 发送评论 -->
             <div class="reply_post" v-loading="post_loading">
                 <h2>添加新评论</h2>
-                <el-form :model="post_data" :rules="rules" ref="post_data">
+                <el-form :model="post_data" :rules="rules" ref="post_form">
                     <el-row :gutter="20">
                         <!-- 名字输入 -->
                         <el-col :sm="8" :xs="24">
@@ -44,7 +44,7 @@
                     <!-- 评论提交按钮 -->
                     <el-form-item>
                         <div class="center">
-                            <el-button icon="el-icon-position" @click="post_reply('post_data')">发送</el-button>
+                            <el-button icon="el-icon-position" @click="post_reply">发送</el-button>
                         </div>
                     </el-form-item>
                 </el-form>
@@ -101,86 +101,47 @@
         </el-card>
     </div>
 </template>
-<script>
-    export default {
+<script lang="ts">
+    import Vue from "vue"
+    import {Form} from "element-ui";
+    import {ReplyData} from "@/assets/interface";
+
+    interface RuleItem {
+        validator: (rule: any, value: string, callback: Function) => void
+        trigger: string
+    }
+
+    interface PostData {
+        name: string
+        email: string
+        url: string
+        content: string
+    }
+
+    interface Data {
+        reply_data_list:ReplyData[]
+        page:number
+        limit_num:number
+        post_data:PostData
+        post_loading:boolean
+        get_loading:boolean
+        rules:{
+            [propName: string]: RuleItem[]
+        }
+    }
+    export default Vue.extend({
         name: "article_reply",
         props: {
-            aid: Number, // 文章的aid
-            reply_num: Number // 评论数
+            aid: Number as ()=>number, // 文章的aid
+            reply_num: Number as ()=>number // 评论数
         },
-        data() {
-            // 名字的判断
-            let check_name = (rule, value, callback) => {
-                if (value === "") {
-                    callback(new Error("请输入名字"));
-                } else {
-                    callback();
-                }
-            };
-            // 邮箱的判断
-            let check_email = (rule, value, callback) => {
-                let reg_email = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
-                if (value === "") {
-                    callback(new Error("请输入邮箱"));
-                } else if (!reg_email.test(value)) {
-                    callback(new Error("邮箱格式错误"));
-                } else {
-                    callback();
-                }
-            };
-            // url的判断
-            let check_url = (rule, value, callback) => {
-                let reg_url = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
-                if (value !== "" && !reg_url.test(value)) {
-                    callback(new Error("网址格式错误"));
-                } else {
-                    callback();
-                }
-            };
-            // 评论内容的判断
-            let check_content = (rule, value, callback) => {
-                if (value === "") {
-                    callback(new Error("请输入评论内容"));
-                } else {
-                    callback();
-                }
-            };
-            return {
-                reply_data_list: [], // 评论数据列表
-                page: 1, // 评论页码
-                limit_num: 20, // 一页评论数量
-                post_data: {
-                    //发送评论数据
-                    name: "", //评论者名字
-                    email: "", //电子邮箱
-                    url: "", //网址
-                    content: "" //评论内容
-                },
-                post_loading: false, //post loading效果
-                get_loading: false, // get loading 效果
-                // 表单的验证规则
-                rules: {
-                    name: [{validator: check_name, trigger: "change"}], //名字验证规则
-                    email: [{validator: check_email, trigger: "change"}], //电子邮箱验证规则
-                    url: [{validator: check_url, trigger: "change"}], //url 验证规则
-                    content: [{validator: check_content, trigger: "change"}] //评论内容验证规则
-                }
-            };
-        },
-        computed: {
-            // 偏移量
-            offset() {
-                return (Number(this.page) - 1) * Number(this.limit_num);
-            }
-        },
-        methods: {
-            // 评论页码改变
-            handleCurrentChange(val) {
+        methods:{
+            handleCurrentChange(val:number) {
                 this.page = val;
                 this.get_reply();
             },
             // 获取评论
-            get_reply() {
+            get_reply():void {
                 this.get_loading = true;
                 this.axios
                     .post("https://www.sushao.top/api/blog/reply/base", {
@@ -210,8 +171,9 @@
                     });
             },
             // 发送评论
-            post_reply(data) {
-                this.$refs[data].validate(valid => {
+            post_reply() {
+                const form=this.$refs.post_form as Form
+                form.validate((valid:boolean) => {
                     // 表单验证成功
                     if (valid) {
                         this.post_loading = true;
@@ -262,8 +224,73 @@
                     }
                 });
             }
-        }
-    };
+        },
+        data():Data {
+            // 名字的判断
+            let check_name = (rule:any, value:string, callback:Function) => {
+                if (value === "") {
+                    callback(new Error("请输入名字"));
+                } else {
+                    callback();
+                }
+            };
+            // 邮箱的判断
+            let check_email = (rule:any, value:string, callback:Function) => {
+                const reg_email = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+                if (value === "") {
+                    callback(new Error("请输入邮箱"));
+                } else if (!reg_email.test(value)) {
+                    callback(new Error("邮箱格式错误"));
+                } else {
+                    callback();
+                }
+            };
+            // url的判断
+            let check_url = (rule:any, value:string, callback:Function) => {
+                const reg_url = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+                if (value !== "" && !reg_url.test(value)) {
+                    callback(new Error("网址格式错误"));
+                } else {
+                    callback();
+                }
+            };
+            // 评论内容的判断
+            let check_content = (rule:any, value:string, callback:Function) => {
+                if (value === "") {
+                    callback(new Error("请输入评论内容"));
+                } else {
+                    callback();
+                }
+            };
+            return {
+                reply_data_list: [], // 评论数据列表
+                page: 1, // 评论页码
+                limit_num: 20, // 一页评论数量
+                post_data: {
+                    //发送评论数据
+                    name: "", //评论者名字
+                    email: "", //电子邮箱
+                    url: "", //网址
+                    content: "" //评论内容
+                },
+                post_loading: false, //post loading效果
+                get_loading: false, // get loading 效果
+                // 表单的验证规则
+                rules: {
+                    name: [{validator: check_name, trigger: "change"}], //名字验证规则
+                    email: [{validator: check_email, trigger: "change"}], //电子邮箱验证规则
+                    url: [{validator: check_url, trigger: "change"}], //url 验证规则
+                    content: [{validator: check_content, trigger: "change"}] //评论内容验证规则
+                }
+            };
+        },
+        computed: {
+            // 偏移量
+            offset():number {
+                return (Number(this.page) - 1) * Number(this.limit_num);
+            }
+        },
+    })
 </script>
 
 <style scoped lang="scss">

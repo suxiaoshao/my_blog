@@ -16,10 +16,14 @@
         </el-card>
     </div>
 </template>
-<script>
-    import {MarkdownPreview} from "vue-meditor"
+<script lang="ts">
 
-    export default {
+    // @ts-ignore
+    import {MarkdownPreview} from 'vue-meditor'
+    import Vue from "vue"
+    import {ArticleData} from "@/assets/interface";
+
+    export default Vue.extend({
         name: "article-content",
         components: {
             MarkdownPreview: MarkdownPreview
@@ -30,14 +34,14 @@
             }
         },
         props: {
-            article_data: Object
+            article_data: Object as ()=>ArticleData
         },
         methods: {
-            go_to_classification(type) {
-                this.$router.push({name: "classification", params: {tid: type}})
+            go_to_classification(type:number) {
+                this.$router.push({name: "classification", params: {tid: String(type)}})
             }
         }
-    };
+    });
 </script>
 <style lang="scss">
     .article-content {

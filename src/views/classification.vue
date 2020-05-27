@@ -58,20 +58,30 @@
     </div>
 </template>
 
-<script>
-    import navigation from "../components/Navigavition";
-    import show from "../components/show";
-    import record_show from "../components/record_show";
+<script lang="ts">
+    import navigation from "../components/Navigavition.vue";
+    import show from "../components/show.vue";
+    import record_show from "../components/record_show.vue";
+    import Vue from "vue"
+    import {ArticleListData} from "@/assets/interface";
 
-    export default {
+    interface Data{
+        article_num:number
+        limit_num:number
+        all_data:ArticleListData[]
+        article_type:string[]
+        real_page:number
+        loading:boolean
+    }
+    export default Vue.extend({
         name: "classification",
-        data() {
+        data():Data {
             return {
                 article_num: 0, //总文章数
                 limit_num: 10, // 获取文章list的总数
                 all_data: [], //文章list
                 article_type: ["学习", "代码", "其他", "工具"], // 文章类型总数
-                real_page: this.$route.query.page, //显示的页面数量
+                real_page: Number(this.$route.query.page), //显示的页面数量
                 loading: false //页面是否在加载中
             };
         },
@@ -82,19 +92,19 @@
             "record-show": record_show
         },
         methods: {
-            handleCurrentChange(val) {
+            handleCurrentChange(val:Number):void {
                 this.$router.push({
                     name: "classification",
-                    params: {tid: this.type},
-                    query: {page: val}
+                    params: {tid: String(this.type)},
+                    query: {page: String(val)}
                 });
             },
             // 根据类型选择器跳转到相应url
-            go_to_url(tid) {
-                this.$router.push({name: "classification", params: {tid: tid}});
+            go_to_url(tid:Number):void {
+                this.$router.push({name: "classification", params: {tid: String(tid)}});
             },
             // 获取文章总数
-            get_base() {
+            get_base():void {
                 this.loading = true;
                 this.axios
                     .post("https://www.sushao.top/api/blog/home/base", {
@@ -114,7 +124,10 @@
                                 this.loading = false;
                             } else {
                                 this.get_data();
-                                document.getElementById("title").scrollIntoView();
+                                const title=document.getElementById("title")
+                                if(title!==null){
+                                    title.scrollIntoView()
+                                }
                             }
                         } else {
                             this.$notify({
@@ -132,7 +145,7 @@
                     });
             },
             // 获取文章list数据
-            get_data() {
+            get_data():void {
                 this.loading = true;
                 this.axios
                     .post("https://www.sushao.top/api/blog/home/article_list", {
@@ -163,15 +176,15 @@
         },
         computed: {
             // 文章的类型编号
-            type() {
+            type():number {
                 return Number(this.$route.params.tid);
             },
             // 文章偏移量
-            offset() {
+            offset():number {
                 return (this.page - 1) * this.limit_num;
             },
             // 页面页数
-            page() {
+            page():number {
                 if (this.$route.query.page === undefined) {
                     return 1;
                 } else {
@@ -191,7 +204,7 @@
             // 获取文章总数和list数据
             this.get_base();
         }
-    };
+    });
 </script>
 
 <style scoped lang="scss">

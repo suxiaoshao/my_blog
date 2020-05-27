@@ -1,26 +1,29 @@
 <template>
-    <div id="app">
-        <vue-particles class="vue-particles" color="#dedede" :particleOpacity="0.7" :particlesNumber="80"
-                       shapeType="circle" :particleSize="4" linesColor="#dedede" :linesWidth="1" :lineLinked="true"
-                       :lineOpacity="0.4" :linesDistance="150" :moveSpeed="3" :hoverEffect="true" hoverMode="grab"
-                       :clickEffect="true" clickMode="push"></vue-particles>
-        <router-view></router-view>
-    </div>
+  <div id="app" class="router">
+    <vue-particles class="vue-particles" color="#dedede" :particleOpacity="0.7" :particlesNumber="80"
+                   shapeType="circle" :particleSize="4" linesColor="#dedede" :linesWidth="1" :lineLinked="true"
+                   :lineOpacity="0.4" :linesDistance="150" :moveSpeed="3" :hoverEffect="true" hoverMode="grab"
+                   :clickEffect="true" clickMode="push"
+    ></vue-particles>
+    <router-view></router-view>
+  </div>
 </template>
 
-<script>
-    export default {
-        name: "app"
-    };
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
+  name: 'App'
+});
 </script>
 
-<style>
-    .vue-particles {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index:-1;
-    }
+<style lang="scss">
+  .vue-particles {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
 </style>

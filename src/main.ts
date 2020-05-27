@@ -1,9 +1,10 @@
-// import Vue from 'vue'
+import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import "./app.scss"
-// import './plugins/element.js'
-// import axios from 'axios'
+import './plugins/element.ts'
+import axios from 'axios'
+// @ts-ignore
 import VueParticles from 'vue-particles'
 
 Vue.config.productionTip = false

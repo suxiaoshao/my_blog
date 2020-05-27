@@ -1,16 +1,12 @@
-// import Vue from 'vue'
-// import VueRouter from 'vue-router'
-import article from "../views/article";
-import Home from "../views/Home";
-import classification from "../views/classification";
-import search from "../views/search";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
 Vue.use(VueRouter);
 const routes = [
     {
         path: '/article/:aid',
         name: 'blog_article',
-        component: article,
+        component: ()=>import("../views/article.vue"),
         meta: {
             title: '文章'
         }
@@ -18,7 +14,7 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: Home,
+        component: ()=>import("../views/Home.vue"),
         meta: {
             title: "sushao'blog"
         }
@@ -26,7 +22,7 @@ const routes = [
     {
         path: '/classification/:tid',
         name: 'classification',
-        component: classification,
+        component: ()=>import("../views/classification.vue"),
         meta: {
             title: '分类'
         }
@@ -34,7 +30,7 @@ const routes = [
     {
         path: "/search/:search_name",
         name: "search",
-        component: search,
+        component: ()=>import("../views/search.vue"),
         meta: {
             title: '搜索'
         }

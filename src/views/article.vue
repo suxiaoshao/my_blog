@@ -54,21 +54,28 @@
         </el-container>
     </div>
 </template>
-<script>
-    import content from "../components/article_show";
-    import reply from "../components/article_reply";
-    import record_show from "../components/record_show";
-    import navigation from "../components/Navigavition";
+<script lang="ts">
+    import content from "../components/article_show.vue";
+    import Reply from "../components/article_reply.vue";
+    import record_show from "../components/record_show.vue";
+    import navigation from "../components/Navigavition.vue";
+    import Vue from "vue"
+    import {ArticleData} from "@/assets/interface";
 
-    export default {
+    interface Data{
+        article_data:ArticleData
+        dialogVisible: boolean
+        loading: boolean
+    }
+    export default Vue.extend({
         name: "blog_article",
         components: {
             "article-content": content,
-            "article-reply": reply,
+            "article-reply": Reply,
             "record-show": record_show,
             "my-navigation": navigation
         },
-        data() {
+        data():Data {
             return {
                 // 文章数据
                 article_data: {
@@ -91,7 +98,7 @@
         },
         methods: {
             // 获取文章信息
-            get_base() {
+            get_base():void {
                 this.loading = true;
                 this.axios
                     .post("https://www.sushao.top/api/blog/article/base", {
@@ -103,6 +110,7 @@
                             this.loading = false;
                             this.article_data = response.data.article_data;
                             window.document.title = response.data.article_data.title;
+                            // @ts-ignore
                             this.$refs.reply.get_reply()
                         } else {
                             this.loading = false;
@@ -121,40 +129,46 @@
                     });
             },
             // 工具球点击
-            handleCommand(item) {
+            handleCommand(item: string):void {
                 if (item === "a") {
-                    document.getElementById("title").scrollIntoView();
+                    const title = document.getElementById("title")
+                    if (title !== null) {
+                        title.scrollIntoView()
+                    }
                 } else if (item === "b") {
                     this.dialogVisible = true;
                 }
             },
             // 点击目录跳转到hash
-            go_to_hash(hash) {
-                document.getElementById(hash).scrollIntoView()
+            go_to_hash(hash: string):void {
+                const title = document.getElementById(hash)
+                if (title !== null) {
+                    title.scrollIntoView()
+                }
                 this.dialogVisible = false;
             },
             // 子组件更新评论数
-            reply_update(value) {
+            reply_update(value: number):void {
                 this.article_data.reply_num = value
             }
         },
         watch: {
             // 监听aid是否发生变化如果变化,执行get_base()
-            aid() {
+            aid():void {
                 this.get_base();
             }
         },
         computed: {
             // 是否为手机
-            is_phone() {
+            is_phone():boolean {
                 return document.documentElement.clientWidth <= 750;
             },
             // 文章的aid
-            aid() {
-                return this.$route.params.aid;
+            aid() :number{
+                return Number(this.$route.params.aid);
             }
         }
-    };
+    })
 </script>
 <style scoped lang="scss">
     .dialog-footer {

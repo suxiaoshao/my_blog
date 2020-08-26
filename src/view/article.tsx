@@ -39,6 +39,7 @@ export function Article(): JSX.Element {
     getArticleContent(Number(match.aid)).then((res) => {
       if (res.success) {
         setArticleContent(res.data);
+        divList.current.scrollTop = 0;
       }
     });
   }, [match.aid]);

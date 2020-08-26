@@ -118,6 +118,7 @@ export async function getArticleList(
   );
   return response.data;
 }
+
 //获取文章内容
 export async function getArticleContent(aid: number): Promise<WebInterface<ArticleContent>> {
   const res = await axios.get<WebInterface<ArticleContent>>(`/article/${aid}`);
@@ -163,6 +164,42 @@ export async function getReplyList(aid: number, offset: number, limit: number): 
           success: false,
           data: {
             replyList: [],
+          },
+        },
+      };
+    });
+  return res.data;
+}
+
+//发送评论
+export async function postReply(
+  aid: number,
+  name: string,
+  url: string,
+  email: string,
+  content: string,
+): Promise<WebInterface<ReplyItem>> {
+  const res = await axios
+    .post<WebInterface<ReplyItem>>('/uploadReply', {
+      aid: aid,
+      name: name,
+      url: url,
+      email: email,
+      content: content,
+    })
+    .catch<WebErrorInterface<ReplyItem>>(() => {
+      return {
+        data: {
+          msg: '网络错误',
+          success: false,
+          data: {
+            aid: -1,
+            name: '',
+            email: '',
+            content: '',
+            url: '',
+            timeStamp: -1,
+            rid: -1,
           },
         },
       };

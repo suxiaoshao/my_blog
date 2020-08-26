@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { Path } from 'history';
+
 export function LinkButton(props: {
   children: React.ReactNode;
   href: string;
@@ -17,10 +18,7 @@ export function LinkButton(props: {
       href={props.href}
       onClick={(e) => {
         e.preventDefault();
-        history.push('/fail');
-        setTimeout(() => {
-          history.push(props.path);
-        }, 1);
+        history.push(props.path);
       }}
       className={props.className}
     >

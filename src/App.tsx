@@ -17,7 +17,6 @@ export default function App(): JSX.Element {
             <Route path="/article/:aid">
               <Article />
             </Route>
-            <Route path="/fail" />
           </Switch>
         </MyThemeProvider>
       </Router>

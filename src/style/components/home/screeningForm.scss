@@ -1,0 +1,47 @@
+.screening-form {
+  .search-input {
+    width: 100%;
+  }
+  .sort-button-group {
+    margin-top: 10px;
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-around;
+  }
+  .type-input {
+    margin-top: 10px;
+    .MuiPaper-root {
+      background-color: rgba(0, 0, 0, 0);
+      .selected-type {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        .MuiChip-root {
+          margin: 3px;
+          background-color: #cadefc;
+          color: rgba(0, 0, 0, 0.87);
+        }
+        .MuiSvgIcon-root {
+          color: rgba(0, 0, 0, 0.7);
+        }
+      }
+      .not-selected-type {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        .MuiSvgIcon-root {
+          color: rgba(0, 0, 0, 0.7);
+        }
+        .MuiChip-root {
+          margin: 3px;
+          background-color: #c9d6df;
+          color: rgba(0, 0, 0, 0.87);
+        }
+      }
+      .select-all-type{
+        display: flex;
+        justify-content: space-around;
+      }
+    }
+  }
+}

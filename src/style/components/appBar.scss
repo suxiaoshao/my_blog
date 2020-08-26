@@ -1,0 +1,36 @@
+.my-main {
+  width: 100%;
+  height: 100%;
+
+  .my-app-bar {
+    .my-toolbar {
+      display: flex;
+
+      .tool-title {
+        flex: 1 1 0;
+        text-align: center;
+      }
+    }
+  }
+
+  .my-content {
+    overflow: auto;
+  }
+
+  .my-content {
+    height: calc(100% - 64px);
+  }
+}
+.my-light {
+  .my-app-bar {
+    background-color: #cadefc;
+    .tool-title {
+      color: rgba(0, 0, 0, 1);
+    }
+  }
+}
+.my-dark {
+  .my-app-bar {
+    background-color: #112d4e;
+  }
+}

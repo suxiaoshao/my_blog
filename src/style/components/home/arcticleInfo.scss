@@ -1,0 +1,34 @@
+.article-info {
+  background-color: #52616b40 !important;
+  height: 100%;
+
+  .MuiCardHeader-content {
+    overflow: hidden;
+  }
+
+  .article-info-title {
+    text-transform: none;
+    .article-info-close{
+      text-overflow: '...';
+      white-space:nowrap;
+      width: 100%;
+      overflow: hidden
+    }
+  }
+  .MuiCardContent-root{
+    padding-top: 0;
+    ul{
+      padding-top: 0;
+    }
+  }
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+.my-light{
+  .article-info{
+    background-color: #c3bef040!important;
+  }
+}

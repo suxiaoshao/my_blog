@@ -1,0 +1,26 @@
+.phone-button {
+  position: fixed !important;
+  z-index: 10;
+  bottom: 5vh;
+  right: 10vw;
+}
+
+$dark-background-color: #1c446c;
+$light-background-color: rgb(234, 244, 252);
+.dark-tab {
+  .MuiPaper-root {
+    background-color: $dark-background-color;
+    .content {
+      margin: 5px;
+    }
+  }
+}
+
+.light-tab {
+  .MuiPaper-root {
+    background-color: $light-background-color;
+    .content {
+      margin: 5px;
+    }
+  }
+}

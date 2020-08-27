@@ -1,25 +1,18 @@
-.my-reply{
+.my-reply {
   display: flex;
   flex-direction: column;
   align-items: center;
-  .my-reply-item{
-    background-color: #00000000!important;
+
+  .my-reply-item {
+    background-color: #00000000 !important;
     width: 100%;
-    .reply-info{
-      display: flex;
-      align-items: center;
-      .reply-info-time{
-        padding: 6px 8px 6px 0;
-      }
-      .reply-info-button{
-        text-transform: none;
-      }
-    }
-    .reply-markdown{
+
+    .reply-markdown {
       margin: 0;
       padding: 0;
     }
   }
+
   .load-button {
     margin: 0 10px 10px 10px;
     width: 66%;
@@ -29,6 +22,21 @@
     }
     @media screen and (min-width: 1400px) {
       width: 40%;
+    }
+  }
+}
+
+.reply-info {
+  .MuiPaper-elevation8 {
+    width: 300px;
+    .MuiListItemText-root{
+      .MuiListItemText-secondary{
+        word-wrap:break-word;
+        word-break:break-all;
+      }
+    }
+    .have-action{
+      max-width: 150px;
     }
   }
 }

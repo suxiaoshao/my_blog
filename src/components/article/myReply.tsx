@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useState } from 'react';
+import React, { MutableRefObject, useEffect, useMemo, useState } from 'react';
 import '../../style/components/article/myReply.scss';
 import { getReplyList, getReplyNum, ReplyItem } from '../../util/http';
 import { replyLimit } from '../../util/config';
@@ -10,138 +10,102 @@ import {
   CardHeader,
   Collapse,
   Divider,
-  IconButton,
-  Snackbar,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
+  Popover,
   Typography,
 } from '@material-ui/core';
 import OpenButton from '../common/openButton';
-import { Close } from '@material-ui/icons';
+import { Email, Link } from '@material-ui/icons';
 import MyMarkdown from './markdown';
 import { getFormatTime } from '../../util/myUtils';
 
 const buddhaSrc: string = require('../../assets/buddha.svg');
 
-function SnackbarButton(props: {
-  children: React.ReactNode;
-  onClick: (event: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>) => void;
-  className?: string;
-  href?: string;
-  message: string;
-  action?: React.ReactNode;
-  autoHideDuration?: number;
-}): JSX.Element {
-  const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false);
+function InfoList(props: { url: string; email: string }): JSX.Element {
   return (
-    <>
-      {/*按钮本体*/}
-      <Button
-        href={props.href}
-        className={props.className}
-        onClick={(event) => {
-          props.onClick(event);
-          setSnackbarOpen(true);
-        }}
-      >
-        {props.children}
-      </Button>
-
-      {/*消息条*/}
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={snackbarOpen}
-        message={props.message}
-        onClose={() => {
-          setSnackbarOpen(false);
-        }}
-        autoHideDuration={props.autoHideDuration}
-        action={
-          <>
-            {props.action}
-            <IconButton
-              size="small"
-              aria-label="close"
-              color="inherit"
+    <List dense>
+      <ListItem>
+        <ListItemIcon>
+          <Email />
+        </ListItemIcon>
+        <ListItemText primary="邮箱" secondary={props.email} />
+      </ListItem>
+      {props.url !== '' ? (
+        <ListItem>
+          <ListItemIcon>
+            <Link />
+          </ListItemIcon>
+          <ListItemText className="have-action" primary="网址" secondary={props.url.slice(0, 22)} />
+          <ListItemSecondaryAction>
+            <Button
               onClick={() => {
-                setSnackbarOpen(false);
+                window.open(props.url);
               }}
             >
-              <Close fontSize="small" />
-            </IconButton>
-          </>
-        }
-      />
-    </>
+              前往
+            </Button>
+          </ListItemSecondaryAction>
+        </ListItem>
+      ) : undefined}
+    </List>
   );
 }
 
 // 每个 reply 元素
 function ReplyItem(props: ReplyItem): JSX.Element {
-  const [tipOpen, setTipOpen] = useState<boolean>(true);
+  //是否打开内容
+  const [contentOpen, setContentOpen] = useState<boolean>(true);
+  //锚点
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  //是否打开信息
+  const infoOpen = useMemo<boolean>(() => {
+    return anchorEl !== null;
+  }, [anchorEl]);
   return (
     <>
       <Card elevation={0} className="my-reply-item">
         <CardHeader
-          avatar={<Avatar aria-label="recipe" src={buddhaSrc} />}
+          avatar={
+            <Avatar aria-label="recipe">
+              <Popover
+                className={'reply-info'}
+                anchorEl={anchorEl}
+                open={infoOpen}
+                onClose={() => {
+                  setAnchorEl(null);
+                }}
+              >
+                <InfoList email={props.email} url={props.url} />
+              </Popover>
+              <Button
+                onClick={(event) => {
+                  setAnchorEl(event.currentTarget);
+                }}
+              >
+                <img src={buddhaSrc} alt="头像" className="MuiAvatar-img" />
+              </Button>
+            </Avatar>
+          }
           title={props.name}
           subheader={
-            <div className="reply-info">
-              {/* 时间*/}
-              <Typography variant="body2" color="textSecondary" className="reply-info-time">
-                {getFormatTime(props.timeStamp)}
-              </Typography>
-
-              {/*邮箱*/}
-              <SnackbarButton
-                className="reply-info-button"
-                onClick={() => {
-                  document.execCommand(props.email);
-                }}
-                message="已复制到剪切板"
-                autoHideDuration={3000}
-              >
-                <Typography variant="body2" color="textSecondary">
-                  {props.email}
-                </Typography>
-              </SnackbarButton>
-
-              {/*网站*/}
-              {props.url !== '' ? (
-                <SnackbarButton
-                  className="reply-info-button"
-                  href={props.url}
-                  onClick={(e) => {
-                    e.preventDefault();
-                  }}
-                  autoHideDuration={3000}
-                  message="是否打开此网站"
-                  action={
-                    <Button
-                      color="primary"
-                      onClick={() => {
-                        window.open(props.url);
-                      }}
-                    >
-                      确定
-                    </Button>
-                  }
-                >
-                  <Typography variant="body2" color="textSecondary">
-                    {props.url.match(/\/\/(.+)\/?/)[1]}
-                  </Typography>
-                </SnackbarButton>
-              ) : undefined}
-            </div>
+            <Typography variant="body2" color="textSecondary">
+              发布于{getFormatTime(props.timeStamp)}
+            </Typography>
           }
           action={
             <OpenButton
-              open={tipOpen}
+              open={contentOpen}
               onClick={() => {
-                setTipOpen((value) => !value);
+                setContentOpen((value) => !value);
               }}
             />
           }
         />
-        <Collapse in={tipOpen} timeout="auto" unmountOnExit>
+        <Collapse in={contentOpen} timeout="auto" unmountOnExit>
           <CardContent>
             <MyMarkdown value={props.content} className="reply-markdown" />
           </CardContent>

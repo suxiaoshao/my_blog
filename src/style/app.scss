@@ -1,32 +1,38 @@
-.my-dark {
-  width: 100%;
-  height: 100%;
-  background: #667db6;
-  background: linear-gradient(to right, rgb(10, 64, 114),  rgb(49, 73, 102));
+*{
+  .my-dark {
+    width: 100%;
+    height: 100%;
+    background: #667db6;
+    background: linear-gradient(to right, rgb(10, 64, 114),  rgb(49, 73, 102));
+
+    ::-webkit-scrollbar-thumb{
+      background-color: #ffffff40;
+    }
+    scrollbar-color:#ffffff40 transparent;
+  }
+  .my-light {
+    width: 100%;
+    height: 100%;
+    background: #e0eafc;
+    background: linear-gradient(
+                    to right,
+                    rgb(224, 234, 252),
+                    rgb(207, 222, 243)
+    );
+    ::-webkit-scrollbar-thumb{
+      background-color: #00000040;
+    }
+    scrollbar-color:#00000040 transparent;
+  }
+
+  ::-webkit-scrollbar
+  {
+    width:10px;
+    height:10px;
+  }
+  scrollbar-width: 10px;
 
   ::-webkit-scrollbar-thumb{
-    background-color: #ffffff40;
+    border-radius: 5px;
   }
-}
-.my-light {
-  width: 100%;
-  height: 100%;
-  background: #e0eafc;
-  background: linear-gradient(
-    to right,
-    rgb(224, 234, 252),
-                  rgb(207, 222, 243)
-  );
-  ::-webkit-scrollbar-thumb{
-    background-color: #00000040;
-  }
-}
-
-::-webkit-scrollbar
-{
-  width:10px;
-  height:10px;
-}
-::-webkit-scrollbar-thumb{
-  border-radius: 5px;
 }

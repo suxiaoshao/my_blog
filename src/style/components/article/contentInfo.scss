@@ -1,0 +1,39 @@
+.content-info {
+  background-color: #00000000 !important;
+  width: 100%;
+  .MuiCardHeader-content {
+    display: flex;
+    justify-content: center;
+  }
+  .simple-info {
+    display: flex;
+    justify-content: space-around;
+    .info-item {
+      display: flex;
+      align-items: center;
+      .icon {
+        width: 18px;
+        height: 18px;
+        margin-right: 4px;
+      }
+    }
+  }
+  .type-info {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+}
+.my-light{
+  .type-label {
+    color: #393e46 !important;
+    background-color: #c3bef0 !important;
+  }
+}
+.type-label {
+  color: #4a2c50 !important;
+  background-color: #aa96da !important;
+  margin: 6px 10px 6px 10px;
+  padding: 0 12px 0 12px!important;
+}

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
-import '../../style/components/appBar.scss';
+import '../../style/components/common/appBar.scss';
 import { GitHub, Brightness4, Brightness5 } from '@material-ui/icons';
 import { ThemeContext } from './theme';
 import { useTitle } from 'react-use';

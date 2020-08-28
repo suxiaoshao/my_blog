@@ -9,6 +9,7 @@ import MyFab from '../components/common/myFab';
 import { accessToDirectory, ArticleDirectory } from '../util/myUtils';
 import MyDirectory from '../components/article/myDirectory';
 import MyReply from '../components/article/myReply';
+import ContentInfo from '../components/article/contentInfo';
 
 export function Article(): JSX.Element {
   //路由数据
@@ -65,7 +66,7 @@ export function Article(): JSX.Element {
   }, [scrollTop]);
 
   return (
-    <MyAppBar title={isWide ? articleContent.title : ''} className="article">
+    <MyAppBar title={articleContent.title} className="article">
       {isWide ? (
         <div className="info">
           <MyDirectory directory={directory} active={activeChapter} />
@@ -76,7 +77,14 @@ export function Article(): JSX.Element {
         </MyFab>
       )}
       <div ref={divList} className="article-content">
-        <MyMarkdown value={articleContent.content} />
+        <ContentInfo
+          readNum={articleContent.readNum}
+          title={articleContent.title}
+          type={articleContent.type}
+          replyNum={articleContent.replyNum}
+          timeStamp={articleContent.timeStamp}
+        />
+        <MyMarkdown value={articleContent.content} isMain />
         <MyReply father={divList} aid={Number(match.aid)} />
       </div>
     </MyAppBar>

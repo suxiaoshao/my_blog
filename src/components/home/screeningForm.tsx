@@ -2,7 +2,7 @@ import React, { useContext, useMemo, useState } from 'react';
 import { Button, Chip, TextField, Card, CardContent, CardHeader, IconButton, CardActions } from '@material-ui/core';
 import '../../style/components/home/screeningForm.scss';
 import { ThemeContext } from '../common/theme';
-import { Add, DeleteForever, Publish } from '@material-ui/icons';
+import { AddCircle, DeleteForever, Publish } from '@material-ui/icons';
 
 //表单
 export default function ScreenForm(props: {
@@ -94,8 +94,15 @@ export default function ScreenForm(props: {
               return (
                 <Chip
                   key={value}
+                  clickable
                   label={typeList[value]}
                   onDelete={() => {
+                    const newList = [...props.type].filter((value1) => {
+                      return value1 !== value;
+                    });
+                    props.onTypeListChange(newList);
+                  }}
+                  onClick={() => {
                     const newList = [...props.type].filter((value1) => {
                       return value1 !== value;
                     });
@@ -144,10 +151,16 @@ export default function ScreenForm(props: {
             {notChooseType.map((value) => {
               return (
                 <Chip
+                  clickable
                   key={value}
                   label={typeList[value]}
-                  deleteIcon={<Add />}
+                  deleteIcon={<AddCircle />}
                   onDelete={() => {
+                    const newList = [...props.type];
+                    newList.push(value);
+                    props.onTypeListChange(newList);
+                  }}
+                  onClick={() => {
                     const newList = [...props.type];
                     newList.push(value);
                     props.onTypeListChange(newList);

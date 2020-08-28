@@ -6,7 +6,7 @@ import 'prismjs/plugins/toolbar/prism-toolbar.css';
 import 'prismjs/plugins/show-language/prism-show-language.min';
 import 'prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min';
 
-import '../style/components/materal.scss';
+import '../style/components/common/materal.scss';
 
 // 引入语言
 import 'prismjs/components/prism-clike.min';

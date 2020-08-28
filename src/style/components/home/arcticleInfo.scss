@@ -8,11 +8,11 @@
 
   .article-info-title {
     text-transform: none;
+    width: 100%;
     .article-info-close{
-      text-overflow: '...';
-      white-space:nowrap;
-      width: 100%;
-      overflow: hidden
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
   .MuiCardContent-root{

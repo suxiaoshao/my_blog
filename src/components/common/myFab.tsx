@@ -1,7 +1,7 @@
 import { Add } from '@material-ui/icons';
 import { Fab, SwipeableDrawer } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
-import '../../style/components/myFab.scss';
+import '../../style/components/common/myFab.scss';
 import { ThemeContext } from './theme';
 
 export default function MyFab(props: { children: React.ReactNode }): JSX.Element {

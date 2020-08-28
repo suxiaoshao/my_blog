@@ -20,6 +20,7 @@ import '../../style/components/article/markdown.scss';
 interface MyMarkdownProps {
   value: string;
   className?: string;
+  isMain?: boolean;
 }
 
 function MyImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
@@ -40,6 +41,16 @@ function MyLink(props: { title: string; href: string; children: string }) {
     <Link title={props.title} href={props.href} target="_blank" className="my-link">
       {props.children}
     </Link>
+  );
+}
+
+function EmptyHead(): JSX.Element {
+  return (
+    <Divider
+      style={{
+        margin: '0 0 9px 0',
+      }}
+    />
   );
 }
 
@@ -124,55 +135,56 @@ function MyBlockquote(props: { children: JSX.Element }) {
   return <blockquote className="my-blockquote">{props.children}</blockquote>;
 }
 
-const option: MarkdownOptions = {
-  overrides: {
-    h1: {
-      component: MyHead,
-      props: {
-        variant: 'h2',
-      },
-    },
-    h2: {
-      component: MyHead,
-      props: {
-        variant: 'h3',
-      },
-    },
-    h3: {
-      component: MyHead,
-      props: {
-        variant: 'h4',
-      },
-    },
-    h4: {
-      component: MyHead,
-      props: {
-        variant: 'h5',
-      },
-    },
-    p: {
-      component: Typography,
-      props: {
-        variant: 'body1',
-      },
-    },
-    img: MyImage,
-    a: MyLink,
-    code: MyCode,
-    pre: MyPre,
-    li: MyListItem,
-    table: MyTable,
-    thead: TableHead,
-    tr: TableRow,
-    tbody: TableBody,
-    td: TableCell,
-    th: TableCell,
-    hr: Divider,
-    blockquote: MyBlockquote,
-  },
-};
-
 export default function MyMarkdown(props: MyMarkdownProps): JSX.Element {
+  const option: MarkdownOptions = {
+    overrides: {
+      h1: props.isMain
+        ? EmptyHead
+        : {
+            component: MyHead,
+            props: {
+              variant: 'h2',
+            },
+          },
+      h2: {
+        component: MyHead,
+        props: {
+          variant: 'h3',
+        },
+      },
+      h3: {
+        component: MyHead,
+        props: {
+          variant: 'h4',
+        },
+      },
+      h4: {
+        component: MyHead,
+        props: {
+          variant: 'h5',
+        },
+      },
+      p: {
+        component: Typography,
+        props: {
+          variant: 'body1',
+        },
+      },
+      img: MyImage,
+      a: MyLink,
+      code: MyCode,
+      pre: MyPre,
+      li: MyListItem,
+      table: MyTable,
+      thead: TableHead,
+      tr: TableRow,
+      tbody: TableBody,
+      td: TableCell,
+      th: TableCell,
+      hr: Divider,
+      blockquote: MyBlockquote,
+    },
+  };
   return (
     <div className={`my-markdown ${props.className !== undefined ? props.className : ''}`}>
       <Markdown options={option}>{props.value}</Markdown>

@@ -3,7 +3,7 @@ import { useMedia } from 'react-use';
 import { IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { Menu, Home, Create } from '@material-ui/icons';
 import { useHistory, useLocation } from 'react-router-dom';
-import '../../style/components/mySidebar.scss';
+import '../../style/components/common/mySidebar.scss';
 import { ThemeContext } from './theme';
 import { LinkButton } from './linkButton';
 

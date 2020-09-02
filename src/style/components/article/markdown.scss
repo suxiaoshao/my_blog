@@ -14,6 +14,10 @@
     }
     pre{
       max-height: 500px;
+      code{
+        font-size: 1em;
+        line-height: 1.5em;
+      }
     }
     .toolbar{
       right: 1em;

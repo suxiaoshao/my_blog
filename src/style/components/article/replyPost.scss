@@ -1,0 +1,58 @@
+.reply-post {
+  width: 100%;
+  padding: 0 12px 0 12px;
+
+  .reply-base {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .reply-base-item {
+      @media screen and(max-width: 670px) {
+        width: 100%;
+      }
+      width: 32%;
+    }
+  }
+
+  .content {
+    width: 100%;
+
+    .post-button {
+      color: #55e9bc;
+    }
+  }
+
+  .preview {
+    color: #0a4072;
+    position: relative;
+    margin: 10px 0 10px 0;
+    &:before{
+      color: #fbf0f0;
+      content: '预览';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #7c757550;
+      pointer-events: none;
+    }
+  }
+}
+
+.my-light {
+  .reply-post {
+    .post-button {
+      color: #1fab89;
+    }
+  }
+}

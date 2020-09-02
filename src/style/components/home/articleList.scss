@@ -29,13 +29,7 @@
 
   .load-button {
     margin: 0 10px 10px 10px;
-    width: 66%;
+    width: 100%;
     height: 60px;
-    @media screen and (max-width: 1100px) {
-      width: calc(100% - 20px);
-    }
-    @media screen and (min-width: 1400px) {
-      width: 40%;
-    }
   }
 }

@@ -30,6 +30,9 @@ export function MyThemeProvider(props: { children: React.ReactNode }): JSX.Eleme
     return createMuiTheme({
       palette: {
         type: theme ? 'dark' : 'light',
+        primary: {
+          main: theme ? '#a56cc1' : '#3f72af',
+        },
       },
     });
   }, [theme]);

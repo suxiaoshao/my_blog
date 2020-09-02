@@ -22,9 +22,11 @@ import OpenButton from '../common/openButton';
 import { Email, Link } from '@material-ui/icons';
 import MyMarkdown from './markdown';
 import { getFormatTime } from '../../util/myUtils';
+import ReplyPost from './replyPost';
 
 const buddhaSrc: string = require('../../assets/buddha.svg');
 
+// info列表
 function InfoList(props: { url: string; email: string }): JSX.Element {
   return (
     <List dense>
@@ -56,7 +58,7 @@ function InfoList(props: { url: string; email: string }): JSX.Element {
 }
 
 // 每个 reply 元素
-function ReplyItem(props: ReplyItem): JSX.Element {
+export function ReplyItemComponents(props: ReplyItem): JSX.Element {
   //是否打开内容
   const [contentOpen, setContentOpen] = useState<boolean>(true);
   //锚点
@@ -123,6 +125,8 @@ export default function MyReply(props: { aid: number; father: MutableRefObject<H
   const [replyList, setReplyList] = useState<ReplyItem[]>([]);
   //储存滚动长度
   const [oldHeight, setOldHeight] = useState<number>(0);
+  //新评论的数量
+  const [newReplyNum, setNewReplyNum] = useState<number>(0);
   //获取数据
   const getReplyData = async (offset: number) => {
     setOldHeight(props.father.current.scrollTop);
@@ -133,8 +137,10 @@ export default function MyReply(props: { aid: number; father: MutableRefObject<H
       setReplyList((oldList) => oldList.concat(replyListData.data.replyList));
     }
   };
+  //修改文章时
   useEffect(() => {
     setReplyList([]);
+    setNewReplyNum(0);
     getReplyData(0).then();
   }, [props.aid]);
   useEffect(() => {
@@ -142,13 +148,20 @@ export default function MyReply(props: { aid: number; father: MutableRefObject<H
   }, [replyList]);
   return (
     <div className="my-reply">
+      <ReplyPost
+        onPost={(value) => {
+          setOldHeight(props.father.current.scrollTop);
+          setReplyList((oldValue) => [value].concat(oldValue));
+          setNewReplyNum((value) => value + 1);
+        }}
+      />
       {replyList.map<JSX.Element>((value) => {
-        return <ReplyItem {...value} key={value.rid} />;
+        return <ReplyItemComponents {...value} key={value.rid} />;
       })}
       <Button
         className="load-button"
         onClick={() => {
-          getReplyData(replyList.length).then();
+          getReplyData(replyList.length - newReplyNum).then();
         }}
         disabled={replyNum <= replyList.length}
       >

@@ -27,7 +27,7 @@ import ReplyPost from './replyPost';
 const buddhaSrc: string = require('../../assets/buddha.svg');
 
 // info列表
-function InfoList(props: { url: string; email: string }): JSX.Element {
+function ReplyUserInfo(props: { url: string; email: string }): JSX.Element {
   return (
     <List dense>
       <ListItem>
@@ -41,7 +41,7 @@ function InfoList(props: { url: string; email: string }): JSX.Element {
           <ListItemIcon>
             <Link />
           </ListItemIcon>
-          <ListItemText className="have-action" primary="网址" secondary={props.url.slice(0, 22)} />
+          <ListItemText className="have-action" primary="网址" secondary={props.url} />
           <ListItemSecondaryAction>
             <Button
               onClick={() => {
@@ -81,7 +81,7 @@ export function ReplyItemComponents(props: ReplyItem): JSX.Element {
                   setAnchorEl(null);
                 }}
               >
-                <InfoList email={props.email} url={props.url} />
+                <ReplyUserInfo email={props.email} url={props.url} />
               </Popover>
               <Button
                 onClick={(event) => {
@@ -125,8 +125,8 @@ export default function MyReply(props: { aid: number; father: MutableRefObject<H
   const [replyList, setReplyList] = useState<ReplyItem[]>([]);
   //储存滚动长度
   const [oldHeight, setOldHeight] = useState<number>(0);
-  //新评论的数量
-  const [newReplyNum, setNewReplyNum] = useState<number>(0);
+  // 新评论列表
+  const [newReplyList, setNewReplyList] = useState<ReplyItem[]>([]);
   //获取数据
   const getReplyData = async (offset: number) => {
     setOldHeight(props.father.current.scrollTop);
@@ -134,13 +134,22 @@ export default function MyReply(props: { aid: number; father: MutableRefObject<H
     setReplyNum(replyNumData.data.count);
     if (offset < replyNumData.data.count) {
       const replyListData = await getReplyList(props.aid, offset, replyLimit);
-      setReplyList((oldList) => oldList.concat(replyListData.data.replyList));
+      setReplyList((oldList) =>
+        oldList.concat(
+          // 去除已添加的新评论数据
+          replyListData.data.replyList.filter((value) => {
+            return !newReplyList.some((value1) => {
+              return value1.rid === value.rid;
+            });
+          }),
+        ),
+      );
     }
   };
   //修改文章时
   useEffect(() => {
     setReplyList([]);
-    setNewReplyNum(0);
+    setNewReplyList([]);
     getReplyData(0).then();
   }, [props.aid]);
   useEffect(() => {
@@ -152,7 +161,7 @@ export default function MyReply(props: { aid: number; father: MutableRefObject<H
         onPost={(value) => {
           setOldHeight(props.father.current.scrollTop);
           setReplyList((oldValue) => [value].concat(oldValue));
-          setNewReplyNum((value) => value + 1);
+          setNewReplyList((oldValue) => [value].concat(oldValue));
         }}
       />
       {replyList.map<JSX.Element>((value) => {
@@ -161,7 +170,7 @@ export default function MyReply(props: { aid: number; father: MutableRefObject<H
       <Button
         className="load-button"
         onClick={() => {
-          getReplyData(replyList.length - newReplyNum).then();
+          getReplyData(replyList.length - newReplyList.length).then();
         }}
         disabled={replyNum <= replyList.length}
       >
